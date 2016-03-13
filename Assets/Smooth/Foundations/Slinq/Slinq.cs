@@ -2458,8 +2458,8 @@ namespace Smooth.Slinq {
 		public static Slinq<T, LinkedContext<T>> TakeRight<T, C>(this Slinq<T, C> slinq, int count) {
 			if (slinq.current.isSome) {
 				var split = slinq.SplitRight(count);
-				split._1.DisposeInBackground();
-				return split._2.SlinqAndDispose();
+				split.Item1.DisposeInBackground();
+				return split.Item2.SlinqAndDispose();
 			} else {
 				return new Smooth.Slinq.Slinq<T, LinkedContext<T>>();
 			}

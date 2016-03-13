@@ -10,7 +10,7 @@ namespace Smooth.Delegates {
 	/// 
 	/// For instance:
 	/// 
-	/// option.Where((player, p) => player.team == p._1 && player.score > p._2, Tuple.Create(myTeam, myScore))
+	/// option.Where((player, p) => player.team == p.Item1 && player.score > p.Item2, Tuple.Create(myTeam, myScore))
 	/// 
 	/// Could be written as:
 	/// 
@@ -23,39 +23,39 @@ namespace Smooth.Delegates {
 		#region Action, Tuple
 
 		public static void Call<T1>(this DelegateAction<T1> action, Tuple<T1> t) {
-			action(t._1);
+			action(t.Item1);
 		}
 
 		public static void Call<T1, T2>(this DelegateAction<T1, T2> action, Tuple<T1, T2> t) {
-			action(t._1, t._2);
+			action(t.Item1, t.Item2);
 		}
 		
 		public static void Call<T1, T2, T3>(this DelegateAction<T1, T2, T3> action, Tuple<T1, T2, T3> t) {
-			action(t._1, t._2, t._3);
+			action(t.Item1, t.Item2, t.Item3);
 		}
 		
 		public static void Call<T1, T2, T3, T4>(this DelegateAction<T1, T2, T3, T4> action, Tuple<T1, T2, T3, T4> t) {
-			action(t._1, t._2, t._3, t._4);
+			action(t.Item1, t.Item2, t.Item3, t.Item4);
 		}
 		
 		public static void Call<T1, T2, T3, T4, T5>(this DelegateAction<T1, T2, T3, T4, T5> action, Tuple<T1, T2, T3, T4, T5> t) {
-			action(t._1, t._2, t._3, t._4, t._5);
+			action(t.Item1, t.Item2, t.Item3, t.Item4, t.Item5);
 		}
 		
 		public static void Call<T1, T2, T3, T4, T5, T6>(this DelegateAction<T1, T2, T3, T4, T5, T6> action, Tuple<T1, T2, T3, T4, T5, T6> t) {
-			action(t._1, t._2, t._3, t._4, t._5, t._6);
+			action(t.Item1, t.Item2, t.Item3, t.Item4, t.Item5, t.Item6);
 		}
 		
 		public static void Call<T1, T2, T3, T4, T5, T6, T7>(this DelegateAction<T1, T2, T3, T4, T5, T6, T7> action, Tuple<T1, T2, T3, T4, T5, T6, T7> t) {
-			action(t._1, t._2, t._3, t._4, t._5, t._6, t._7);
+			action(t.Item1, t.Item2, t.Item3, t.Item4, t.Item5, t.Item6, t.Item7);
 		}
 		
 		public static void Call<T1, T2, T3, T4, T5, T6, T7, T8>(this DelegateAction<T1, T2, T3, T4, T5, T6, T7, T8> action, Tuple<T1, T2, T3, T4, T5, T6, T7, T8> t) {
-			action(t._1, t._2, t._3, t._4, t._5, t._6, t._7, t._8);
+			action(t.Item1, t.Item2, t.Item3, t.Item4, t.Item5, t.Item6, t.Item7, t.Item8);
 		}
 		
 		public static void Call<T1, T2, T3, T4, T5, T6, T7, T8, T9>(this DelegateAction<T1, T2, T3, T4, T5, T6, T7, T8, T9> action, Tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9> t) {
-			action(t._1, t._2, t._3, t._4, t._5, t._6, t._7, t._8, t._9);
+			action(t.Item1, t.Item2, t.Item3, t.Item4, t.Item5, t.Item6, t.Item7, t.Item8, t.Item9);
 		}
 
 		#endregion
@@ -63,35 +63,35 @@ namespace Smooth.Delegates {
 		#region Action, First, Tuple
 
 		public static void Call<F, T1>(this DelegateAction<F, T1> action, F first, Tuple<T1> t) {
-			action(first, t._1);
+			action(first, t.Item1);
 		}
 		
 		public static void Call<F, T1, T2>(this DelegateAction<F, T1, T2> action, F first, Tuple<T1, T2> t) {
-			action(first, t._1, t._2);
+			action(first, t.Item1, t.Item2);
 		}
 		
 		public static void Call<F, T1, T2, T3>(this DelegateAction<F, T1, T2, T3> action, F first, Tuple<T1, T2, T3> t) {
-			action(first, t._1, t._2, t._3);
+			action(first, t.Item1, t.Item2, t.Item3);
 		}
 		
 		public static void Call<F, T1, T2, T3, T4>(this DelegateAction<F, T1, T2, T3, T4> action, F first, Tuple<T1, T2, T3, T4> t) {
-			action(first, t._1, t._2, t._3, t._4);
+			action(first, t.Item1, t.Item2, t.Item3, t.Item4);
 		}
 		
 		public static void Call<F, T1, T2, T3, T4, T5>(this DelegateAction<F, T1, T2, T3, T4, T5> action, F first, Tuple<T1, T2, T3, T4, T5> t) {
-			action(first, t._1, t._2, t._3, t._4, t._5);
+			action(first, t.Item1, t.Item2, t.Item3, t.Item4, t.Item5);
 		}
 		
 		public static void Call<F, T1, T2, T3, T4, T5, T6>(this DelegateAction<F, T1, T2, T3, T4, T5, T6> action, F first, Tuple<T1, T2, T3, T4, T5, T6> t) {
-			action(first, t._1, t._2, t._3, t._4, t._5, t._6);
+			action(first, t.Item1, t.Item2, t.Item3, t.Item4, t.Item5, t.Item6);
 		}
 		
 		public static void Call<F, T1, T2, T3, T4, T5, T6, T7>(this DelegateAction<F, T1, T2, T3, T4, T5, T6, T7> action, F first, Tuple<T1, T2, T3, T4, T5, T6, T7> t) {
-			action(first, t._1, t._2, t._3, t._4, t._5, t._6, t._7);
+			action(first, t.Item1, t.Item2, t.Item3, t.Item4, t.Item5, t.Item6, t.Item7);
 		}
 		
 		public static void Call<F, T1, T2, T3, T4, T5, T6, T7, T8>(this DelegateAction<F, T1, T2, T3, T4, T5, T6, T7, T8> action, F first, Tuple<T1, T2, T3, T4, T5, T6, T7, T8> t) {
-			action(first, t._1, t._2, t._3, t._4, t._5, t._6, t._7, t._8);
+			action(first, t.Item1, t.Item2, t.Item3, t.Item4, t.Item5, t.Item6, t.Item7, t.Item8);
 		}
 
 		#endregion
@@ -99,39 +99,39 @@ namespace Smooth.Delegates {
 		#region Func, Tuple
 
 		public static R Call<T1, R>(this DelegateFunc<T1, R> func, Tuple<T1> t) {
-			return func(t._1);
+			return func(t.Item1);
 		}
 		
 		public static R Call<T1, T2, R>(this DelegateFunc<T1, T2, R> func, Tuple<T1, T2> t) {
-			return func(t._1, t._2);
+			return func(t.Item1, t.Item2);
 		}
 		
 		public static R Call<T1, T2, T3, R>(this DelegateFunc<T1, T2, T3, R> func, Tuple<T1, T2, T3> t) {
-			return func(t._1, t._2, t._3);
+			return func(t.Item1, t.Item2, t.Item3);
 		}
 		
 		public static R Call<T1, T2, T3, T4, R>(this DelegateFunc<T1, T2, T3, T4, R> func, Tuple<T1, T2, T3, T4> t) {
-			return func(t._1, t._2, t._3, t._4);
+			return func(t.Item1, t.Item2, t.Item3, t.Item4);
 		}
 		
 		public static R Call<T1, T2, T3, T4, T5, R>(this DelegateFunc<T1, T2, T3, T4, T5, R> func, Tuple<T1, T2, T3, T4, T5> t) {
-			return func(t._1, t._2, t._3, t._4, t._5);
+			return func(t.Item1, t.Item2, t.Item3, t.Item4, t.Item5);
 		}
 		
 		public static R Call<T1, T2, T3, T4, T5, T6, R>(this DelegateFunc<T1, T2, T3, T4, T5, T6, R> func, Tuple<T1, T2, T3, T4, T5, T6> t) {
-			return func(t._1, t._2, t._3, t._4, t._5, t._6);
+			return func(t.Item1, t.Item2, t.Item3, t.Item4, t.Item5, t.Item6);
 		}
 		
 		public static R Call<T1, T2, T3, T4, T5, T6, T7, R>(this DelegateFunc<T1, T2, T3, T4, T5, T6, T7, R> func, Tuple<T1, T2, T3, T4, T5, T6, T7> t) {
-			return func(t._1, t._2, t._3, t._4, t._5, t._6, t._7);
+			return func(t.Item1, t.Item2, t.Item3, t.Item4, t.Item5, t.Item6, t.Item7);
 		}
 		
 		public static R Call<T1, T2, T3, T4, T5, T6, T7, T8, R>(this DelegateFunc<T1, T2, T3, T4, T5, T6, T7, T8, R> func, Tuple<T1, T2, T3, T4, T5, T6, T7, T8> t) {
-			return func(t._1, t._2, t._3, t._4, t._5, t._6, t._7, t._8);
+			return func(t.Item1, t.Item2, t.Item3, t.Item4, t.Item5, t.Item6, t.Item7, t.Item8);
 		}
 		
 		public static R Call<T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(this DelegateFunc<T1, T2, T3, T4, T5, T6, T7, T8, T9, R> func, Tuple<T1, T2, T3, T4, T5, T6, T7, T8, T9> t) {
-			return func(t._1, t._2, t._3, t._4, t._5, t._6, t._7, t._8, t._9);
+			return func(t.Item1, t.Item2, t.Item3, t.Item4, t.Item5, t.Item6, t.Item7, t.Item8, t.Item9);
 		}
 
 		#endregion
@@ -139,35 +139,35 @@ namespace Smooth.Delegates {
 		#region Func, First, Tuple
 
 		public static R Call<F, T1, R>(this DelegateFunc<F, T1, R> func, F first, Tuple<T1> t) {
-			return func(first, t._1);
+			return func(first, t.Item1);
 		}
 		
 		public static R Call<F, T1, T2, R>(this DelegateFunc<F, T1, T2, R> func, F first, Tuple<T1, T2> t) {
-			return func(first, t._1, t._2);
+			return func(first, t.Item1, t.Item2);
 		}
 		
 		public static R Call<F, T1, T2, T3, R>(this DelegateFunc<F, T1, T2, T3, R> func, F first, Tuple<T1, T2, T3> t) {
-			return func(first, t._1, t._2, t._3);
+			return func(first, t.Item1, t.Item2, t.Item3);
 		}
 		
 		public static R Call<F, T1, T2, T3, T4, R>(this DelegateFunc<F, T1, T2, T3, T4, R> func, F first, Tuple<T1, T2, T3, T4> t) {
-			return func(first, t._1, t._2, t._3, t._4);
+			return func(first, t.Item1, t.Item2, t.Item3, t.Item4);
 		}
 		
 		public static R Call<F, T1, T2, T3, T4, T5, R>(this DelegateFunc<F, T1, T2, T3, T4, T5, R> func, F first, Tuple<T1, T2, T3, T4, T5> t) {
-			return func(first, t._1, t._2, t._3, t._4, t._5);
+			return func(first, t.Item1, t.Item2, t.Item3, t.Item4, t.Item5);
 		}
 		
 		public static R Call<F, T1, T2, T3, T4, T5, T6, R>(this DelegateFunc<F, T1, T2, T3, T4, T5, T6, R> func, F first, Tuple<T1, T2, T3, T4, T5, T6> t) {
-			return func(first, t._1, t._2, t._3, t._4, t._5, t._6);
+			return func(first, t.Item1, t.Item2, t.Item3, t.Item4, t.Item5, t.Item6);
 		}
 		
 		public static R Call<F, T1, T2, T3, T4, T5, T6, T7, R>(this DelegateFunc<F, T1, T2, T3, T4, T5, T6, T7, R> func, F first, Tuple<T1, T2, T3, T4, T5, T6, T7> t) {
-			return func(first, t._1, t._2, t._3, t._4, t._5, t._6, t._7);
+			return func(first, t.Item1, t.Item2, t.Item3, t.Item4, t.Item5, t.Item6, t.Item7);
 		}
 		
 		public static R Call<F, T1, T2, T3, T4, T5, T6, T7, T8, R>(this DelegateFunc<F, T1, T2, T3, T4, T5, T6, T7, T8, R> func, F first, Tuple<T1, T2, T3, T4, T5, T6, T7, T8> t) {
-			return func(first, t._1, t._2, t._3, t._4, t._5, t._6, t._7, t._8);
+			return func(first, t.Item1, t.Item2, t.Item3, t.Item4, t.Item5, t.Item6, t.Item7, t.Item8);
 		}
 
 		#endregion

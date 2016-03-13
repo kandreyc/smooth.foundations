@@ -227,10 +227,15 @@ namespace Smooth.Algebraics {
 		/// </summary>
 		public T ValueOr<P>(DelegateFunc<P, T> noneFunc, P p) { return isSome ? value : noneFunc(p); }
 
-		/// <summary>
-		/// If the option isSome and the specified predicate applied to the option's value is true, returns the option; otherwise, returns an empty option.
+        /// <summary>
+		/// If the option isSome, returns the option's value; otherwise, returns the result of noneFunc applied to p.
 		/// </summary>
-		public Option<T> Where(DelegateFunc<T, bool> predicate) { return isSome && predicate(value) ? this : Option<T>.None; }
+		public T ValueOr<P>(Func<P, T> noneFunc, P p) { return isSome ? value : noneFunc(p); }
+
+        /// <summary>
+        /// If the option isSome and the specified predicate applied to the option's value is true, returns the option; otherwise, returns an empty option.
+        /// </summary>
+        public Option<T> Where(DelegateFunc<T, bool> predicate) { return isSome && predicate(value) ? this : Option<T>.None; }
 
 		/// <summary>
 		/// If the option isSome and the specified predicate applied to the option's value and p is true, returns the option; otherwise, returns an empty option.
