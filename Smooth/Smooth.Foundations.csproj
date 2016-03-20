@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{25B7E437-524B-406C-A925-DAD96EA77E95}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>Smooth.Foundations</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>Smooth.Foundations</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\RDSS\Plugins\3rdParty\unity53\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Foundations\__Foundations-Git-Readme.txt" />
+    <Content Include="Foundations\__Foundations-License.txt" />
+    <Content Include="Foundations\__Foundations-Version.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Foundations\Algebraics\Either.cs" />
+    <Compile Include="Foundations\Algebraics\Option.cs" />
+    <Compile Include="Foundations\Algebraics\Tuple.cs" />
+    <Compile Include="Foundations\Algebraics\Union.cs" />
+    <Compile Include="Foundations\Algebraics\Unit.cs" />
+    <Compile Include="Foundations\Algebraics\Variant.cs" />
+    <Compile Include="Foundations\Collections\Comparer.cs" />
+    <Compile Include="Foundations\Collections\CreateWithComparer.cs" />
+    <Compile Include="Foundations\Collections\EqualityComparer.cs" />
+    <Compile Include="Foundations\Collections\FuncEnumerable.cs" />
+    <Compile Include="Foundations\Collections\ICollectionExtensions.cs" />
+    <Compile Include="Foundations\Collections\IDictionaryExtensions.cs" />
+    <Compile Include="Foundations\Collections\IListExtensions.cs" />
+    <Compile Include="Foundations\Collections\IListStepper.cs" />
+    <Compile Include="Foundations\Collections\InspectorKeyValuePair.cs" />
+    <Compile Include="Foundations\Collections\LinkedListStepper.cs" />
+    <Compile Include="Foundations\Compare\Comparers\EnumComparers.cs" />
+    <Compile Include="Foundations\Compare\Comparers\KeyValuePairComparers.cs" />
+    <Compile Include="Foundations\Compare\Configuration.cs" />
+    <Compile Include="Foundations\Compare\Events.cs" />
+    <Compile Include="Foundations\Compare\Examples\ExampleConfiguration.cs" />
+    <Compile Include="Foundations\Compare\Factory.cs" />
+    <Compile Include="Foundations\Compare\Finder.cs" />
+    <Compile Include="Foundations\Compare\Utilities\LogUnregisteredOnDestroy.cs" />
+    <Compile Include="Foundations\Comparisons\Comparisons.cs" />
+    <Compile Include="Foundations\Comparisons\FuncComparer.cs" />
+    <Compile Include="Foundations\Comparisons\FuncEqualityComparer.cs" />
+    <Compile Include="Foundations\Comparisons\IComparableComparer.cs" />
+    <Compile Include="Foundations\Comparisons\IEquatableEqualityComparer.cs" />
+    <Compile Include="Foundations\Delegates\DelegateExtensions.cs" />
+    <Compile Include="Foundations\Delegates\Delegates.cs" />
+    <Compile Include="Foundations\Delegates\Tupled.cs" />
+    <Compile Include="Foundations\Dispose\Disposable.cs" />
+    <Compile Include="Foundations\Dispose\DisposalQueue.cs" />
+    <Compile Include="Foundations\Dispose\SmoothDisposer.cs" />
+    <Compile Include="Foundations\Events\GenericEvents.cs" />
+    <Compile Include="Foundations\PatternMatching\ExecMatcher.cs" />
+    <Compile Include="Foundations\PatternMatching\ExecMatcherAfterElse.cs" />
+    <Compile Include="Foundations\PatternMatching\GeneralMatcher\GeneralMatcherExtensions.cs" />
+    <Compile Include="Foundations\PatternMatching\MatchActionSelector.cs" />
+    <Compile Include="Foundations\PatternMatching\MatchFunctionSelector.cs" />
+    <Compile Include="Foundations\PatternMatching\NoMatchException.cs" />
+    <Compile Include="Foundations\PatternMatching\Options\ActionSelectorForOption.cs" />
+    <Compile Include="Foundations\PatternMatching\Options\FuncSelectorForOption.cs" />
+    <Compile Include="Foundations\PatternMatching\Options\NoneMatcher.cs" />
+    <Compile Include="Foundations\PatternMatching\Options\NoneMatcherResult.cs" />
+    <Compile Include="Foundations\PatternMatching\Options\OfMatcher.cs" />
+    <Compile Include="Foundations\PatternMatching\Options\OfMatcherResult.cs" />
+    <Compile Include="Foundations\PatternMatching\Options\OptionMatcher.cs" />
+    <Compile Include="Foundations\PatternMatching\Options\OptionMatcherAfterElse.cs" />
+    <Compile Include="Foundations\PatternMatching\Options\ResultOptionMatcher.cs" />
+    <Compile Include="Foundations\PatternMatching\Options\ResultOptionMatcherAfterElse.cs" />
+    <Compile Include="Foundations\PatternMatching\Options\SomeMatcher.cs" />
+    <Compile Include="Foundations\PatternMatching\Options\SomeMatcherResult.cs" />
+    <Compile Include="Foundations\PatternMatching\Options\WhereForOption.cs" />
+    <Compile Include="Foundations\PatternMatching\Options\WhereForOptionResult.cs" />
+    <Compile Include="Foundations\PatternMatching\ResultMatcher.cs" />
+    <Compile Include="Foundations\PatternMatching\ResultMatcherWithElse.cs" />
+    <Compile Include="Foundations\PatternMatching\SpecificTypeMatcherExtensions.cs" />
+    <Compile Include="Foundations\PatternMatching\Unions\UnionCaseHandler.cs" />
+    <Compile Include="Foundations\PatternMatching\Unions\UnionMatcher.cs" />
+    <Compile Include="Foundations\PatternMatching\WhereForActionHandler.cs" />
+    <Compile Include="Foundations\PatternMatching\WhereForFuncHandler.cs" />
+    <Compile Include="Foundations\PatternMatching\WithForActionHandler.cs" />
+    <Compile Include="Foundations\PatternMatching\WithForFuncHandler.cs" />
+    <Compile Include="Foundations\Platform\BasePlatform.cs" />
+    <Compile Include="Foundations\Platform\Runtime.cs" />
+    <Compile Include="Foundations\Pools\KeyedPool.cs" />
+    <Compile Include="Foundations\Pools\KeyedPoolWithDefaultKey.cs" />
+    <Compile Include="Foundations\Pools\Pool.cs" />
+    <Compile Include="Foundations\Pools\PoolWithInitializer.cs" />
+    <Compile Include="Foundations\Pools\SystemPools.cs" />
+    <Compile Include="Foundations\Slinq\Collections\Grouping.cs" />
+    <Compile Include="Foundations\Slinq\Collections\Linked.cs" />
+    <Compile Include="Foundations\Slinq\Collections\Lookup.cs" />
+    <Compile Include="Foundations\Slinq\Context\ChainedOrPooled\AggregateContext.cs" />
+    <Compile Include="Foundations\Slinq\Context\ChainedOrPooled\ConcatContext.cs" />
+    <Compile Include="Foundations\Slinq\Context\ChainedOrPooled\EitherContext.cs" />
+    <Compile Include="Foundations\Slinq\Context\ChainedOrPooled\FlattenContext.cs" />
+    <Compile Include="Foundations\Slinq\Context\ChainedOrPooled\GroupByContext.cs" />
+    <Compile Include="Foundations\Slinq\Context\ChainedOrPooled\GroupJoinContext.cs" />
+    <Compile Include="Foundations\Slinq\Context\ChainedOrPooled\HashSetContext.cs" />
+    <Compile Include="Foundations\Slinq\Context\ChainedOrPooled\IntContext.cs" />
+    <Compile Include="Foundations\Slinq\Context\ChainedOrPooled\JoinContext.cs" />
+    <Compile Include="Foundations\Slinq\Context\ChainedOrPooled\LinkedContext.cs" />
+    <Compile Include="Foundations\Slinq\Context\ChainedOrPooled\PredicateContext.cs" />
+    <Compile Include="Foundations\Slinq\Context\ChainedOrPooled\SelectContext.cs" />
+    <Compile Include="Foundations\Slinq\Context\ChainedOrPooled\SelectOptionContext.cs" />
+    <Compile Include="Foundations\Slinq\Context\ChainedOrPooled\SelectSlinqContext.cs" />
+    <Compile Include="Foundations\Slinq\Context\ChainedOrPooled\ZipAllContext.cs" />
+    <Compile Include="Foundations\Slinq\Context\ChainedOrPooled\ZipContext.cs" />
+    <Compile Include="Foundations\Slinq\Context\Mutation\BacktrackDetector.cs" />
+    <Compile Include="Foundations\Slinq\Context\Mutation\BacktrackException.cs" />
+    <Compile Include="Foundations\Slinq\Context\Mutation\Mutator.cs" />
+    <Compile Include="Foundations\Slinq\Context\Simple\FuncContext.cs" />
+    <Compile Include="Foundations\Slinq\Context\Simple\FuncOptionContext.cs" />
+    <Compile Include="Foundations\Slinq\Context\Simple\IEnumerableContext.cs" />
+    <Compile Include="Foundations\Slinq\Context\Simple\IListContext.cs" />
+    <Compile Include="Foundations\Slinq\Context\Simple\LinkedListContext.cs" />
+    <Compile Include="Foundations\Slinq\Context\Simple\OptionContext.cs" />
+    <Compile Include="Foundations\Slinq\Slinq.cs" />
+    <Compile Include="Foundations\Slinq\Slinqable.cs" />
+    <Compile Include="Foundations\Slinq\Test\DistinctLinq.cs" />
+    <Compile Include="Foundations\Slinq\Test\DistinctSlinq.cs" />
+    <Compile Include="Foundations\Slinq\Test\ExceptLinq.cs" />
+    <Compile Include="Foundations\Slinq\Test\ExceptSlinq.cs" />
+    <Compile Include="Foundations\Slinq\Test\GroupByLinq.cs" />
+    <Compile Include="Foundations\Slinq\Test\GroupBySlinq.cs" />
+    <Compile Include="Foundations\Slinq\Test\GroupJoinLinq.cs" />
+    <Compile Include="Foundations\Slinq\Test\GroupJoinSlinq.cs" />
+    <Compile Include="Foundations\Slinq\Test\IntersectLinq.cs" />
+    <Compile Include="Foundations\Slinq\Test\IntersectSlinq.cs" />
+    <Compile Include="Foundations\Slinq\Test\JoinLinq.cs" />
+    <Compile Include="Foundations\Slinq\Test\JoinSlinq.cs" />
+    <Compile Include="Foundations\Slinq\Test\OrderByLinq.cs" />
+    <Compile Include="Foundations\Slinq\Test\OrderBySlinq.cs" />
+    <Compile Include="Foundations\Slinq\Test\SlinqTest.cs" />
+    <Compile Include="Foundations\Slinq\Test\UnionLinq.cs" />
+    <Compile Include="Foundations\Slinq\Test\UnionSlinq.cs" />
+    <Compile Include="Foundations\Slinq\Test\WhereTakeSelectAggregateLinq.cs" />
+    <Compile Include="Foundations\Slinq\Test\WhereTakeSelectAggregateSlinq.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Foundations\Slinq\Test\SlinqTest.unity" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+</Project>
