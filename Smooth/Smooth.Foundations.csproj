@@ -37,7 +37,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>..\..\RDSS\Plugins\3rdParty\unity53\UnityEngine.dll</HintPath>
+      <HintPath>ThirdParty\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
