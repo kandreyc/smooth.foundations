@@ -105,8 +105,6 @@
     <Compile Include="Foundations\PatternMatching\ResultMatcher.cs" />
     <Compile Include="Foundations\PatternMatching\ResultMatcherWithElse.cs" />
     <Compile Include="Foundations\PatternMatching\SpecificTypeMatcherExtensions.cs" />
-    <Compile Include="Foundations\PatternMatching\Unions\UnionCaseHandler.cs" />
-    <Compile Include="Foundations\PatternMatching\Unions\UnionMatcher.cs" />
     <Compile Include="Foundations\PatternMatching\WhereForActionHandler.cs" />
     <Compile Include="Foundations\PatternMatching\WhereForFuncHandler.cs" />
     <Compile Include="Foundations\PatternMatching\WithForActionHandler.cs" />
