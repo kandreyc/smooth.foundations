@@ -44,10 +44,10 @@ namespace Smooth.Foundations.Foundations.Structures
         {
             var testValue = ValueOrError<int>.FromValue(42);
             testValue.Match()
-                .OnValue().Where(i => i == 0).Do(_ => Console.WriteLine("zero"))
-                .OnValue().Where(i => i == 1).Do(_ => Console.WriteLine("one"))
-                .OnOtherValues().Do(i => Console.WriteLine("other int"))
-                .OnError().Do(() => Console.WriteLine("some error has occured"))
+                .Value().Where(i => i == 0).Do(_ => Console.WriteLine("zero"))
+                .Value().Where(i => i == 1).Do(_ => Console.WriteLine("one"))
+                .Value().Others().Do(i => Console.WriteLine("other int"))
+                .Error().Do(() => Console.WriteLine("some error has occured"))
                 .Exec();
         }
 

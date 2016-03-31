@@ -13,5 +13,10 @@ namespace Smooth.Foundations.Foundations.Structures
             return null;
         }
 
+        public ValueActionHandler<T1> Others()
+        {
+            return null;
+        }
+
     }
 }

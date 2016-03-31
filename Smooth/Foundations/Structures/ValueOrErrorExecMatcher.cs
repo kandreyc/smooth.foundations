@@ -18,7 +18,7 @@ namespace Smooth.Foundations.Foundations.Structures
 
 
 
-        public ValuePredicateHandler<T1> OnValue()
+        public ValuePredicateHandler<T1> Value()
         {
             return null;
         }
@@ -28,7 +28,7 @@ namespace Smooth.Foundations.Foundations.Structures
             return null;
         }
 
-        public ValueActionHandler<T1> OnError()
+        public ValueActionHandler<T1> Error()
         {
             return null;
         }
