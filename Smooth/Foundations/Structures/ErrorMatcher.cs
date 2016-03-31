@@ -1,6 +1,4 @@
 ﻿using System;
-using Smooth.Algebraics;
-using Smooth.Delegates;
 
 namespace Smooth.Foundations.Foundations.Structures
 {

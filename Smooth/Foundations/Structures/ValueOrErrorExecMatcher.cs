@@ -17,7 +17,9 @@ namespace Smooth.Foundations.Foundations.Structures
                () => { throw new NoMatchException($"No match action exists for value of {_item}"); });
         }
 
-        public ValueMatcher<T1> Value() => new ValueMatcher<T1>(this, _actionSelector.AddPredicateAndAction);
+        public ValueMatcher<T1> Value() => new ValueMatcher<T1>(this, 
+            _actionSelector.AddPredicateAndAction,
+            _actionSelector.SetDefaultOnValueAction);
         public ErrorMatcher<T1> Error() => new ErrorMatcher<T1>(this, _actionSelector.AddErrorAction);
         public void Exec() => _actionSelector.InvokeMatchedOrDefaultAction(_item);
     }

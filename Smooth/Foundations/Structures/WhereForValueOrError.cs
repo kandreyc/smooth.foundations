@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Smooth.Algebraics;
 using Smooth.Delegates;
-using Smooth.Foundations.PatternMatching.Options;
 
 namespace Smooth.Foundations.Foundations.Structures
 {

@@ -46,7 +46,7 @@ namespace Smooth.Foundations.Foundations.Structures
             testValue.Match()
                 .Value().Where(i => i == 0).Do(i => Console.WriteLine($"{i} is zero"))
                 .Value().Where(i => i == 1).Do(i => Console.WriteLine($"{i} is one"))
-          //    .Value().Others().Do(i => Console.WriteLine("other int"))
+                .Value().Do(i => Console.WriteLine("other int"))
                 .Error().Do(_ => Console.WriteLine("some error has occured"))
                 .Exec();
         }
