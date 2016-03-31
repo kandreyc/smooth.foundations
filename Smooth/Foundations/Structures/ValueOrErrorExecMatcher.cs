@@ -1,6 +1,7 @@
 ﻿using System;
 using Smooth.Delegates;
 using Smooth.Foundations.PatternMatching;
+using Smooth.Foundations.PatternMatching.Options;
 
 namespace Smooth.Foundations.Foundations.Structures
 {
@@ -12,40 +13,12 @@ namespace Smooth.Foundations.Foundations.Structures
         internal ValueOrErrorExecMatcher(ValueOrError<T1> item)
         {
             _item = item;
-//            _actionSelector = new MatchActionSelector<T1>(
-//                x => { throw new NoMatchException($"No match action exists for value of {_item}"); });
+            _actionSelector = new ValueOrErrorMatchActionSelector<T1>(
+               () => { throw new NoMatchException($"No match action exists for value of {_item}"); });
         }
 
-
-
-        public ValuePredicateHandler<T1> Value()
-        {
-            return null;
-        }
-
-        public ValueActionHandler<T1> OnOtherValues()
-        {
-            return null;
-        }
-
-        public ValueActionHandler<T1> Error()
-        {
-            return null;
-        }
-
-        public void Exec()
-        {
-            
-        }
-
-
-
-
-
-
-   
-//        public void Exec() => _actionSelector.InvokeMatchedActionUsingDefaultIfRequired(_item);
-
-
+        public ValueMatcher<T1> Value() => new ValueMatcher<T1>(this, _actionSelector.AddPredicateAndAction);
+        public ErrorMatcher<T1> Error() => new ErrorMatcher<T1>(this, _actionSelector.AddErrorAction);
+        public void Exec() => _actionSelector.InvokeMatchedOrDefaultAction(_item);
     }
 }

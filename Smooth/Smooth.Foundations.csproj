@@ -51,8 +51,10 @@
     <Compile Include="Foundations\Algebraics\Tuple.cs" />
     <Compile Include="Foundations\Algebraics\Union.cs" />
     <Compile Include="Foundations\Algebraics\Unit.cs" />
+    <Compile Include="Foundations\Structures\ErrorMatcher.cs" />
     <Compile Include="Foundations\Structures\OnErrorActionHandler.cs" />
     <Compile Include="Foundations\Structures\ValueActionHandler.cs" />
+    <Compile Include="Foundations\Structures\ValueMatcher.cs" />
     <Compile Include="Foundations\Structures\ValueOrError.cs" />
     <Compile Include="Foundations\Algebraics\Variant.cs" />
     <Compile Include="Foundations\Collections\Comparer.cs" />
@@ -171,6 +173,7 @@
     <Compile Include="Foundations\Structures\ValueOrErrorExecMatcher.cs" />
     <Compile Include="Foundations\Structures\ValueOrErrorMatchActionSelector.cs" />
     <Compile Include="Foundations\Structures\ValuePredicateHandler.cs" />
+    <Compile Include="Foundations\Structures\WhereForValueOrError.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Foundations\Slinq\Test\SlinqTest.unity" />

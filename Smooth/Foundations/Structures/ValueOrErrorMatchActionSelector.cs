@@ -15,6 +15,9 @@ namespace Smooth.Foundations.Foundations.Structures
         private readonly List<Tuple<DelegateFunc<T1, bool>, Action<T1>>> _testsAndActions =
             new List<Tuple<DelegateFunc<T1, bool>, Action<T1>>>();
 
+        private readonly List<Action<string>> _errorActions =
+            new List<Action<string>>();
+
         public ValueOrErrorMatchActionSelector(Action matchNotFoundAction)
         {
             _matchNotFoundAction = matchNotFoundAction;
@@ -26,8 +29,13 @@ namespace Smooth.Foundations.Foundations.Structures
         public void SetDefaultOnValueAction(Action<T1> action) =>
             _onValueDefaultAction = new Option<Action<T1>>(action);
 
+        //Action<DelegateFunc<ValueOrError<T>, bool>, Action<T>>
         public void AddPredicateAndAction(DelegateFunc<T1, bool> test, Action<T1> action) =>
             _testsAndActions.Add(new Tuple<DelegateFunc<T1, bool>, Action<T1>>(test, action));
+
+        public void AddErrorAction(Action<string> action) =>
+        _errorActions.Add(action);
+
 
         public void InvokeMatchedActionUsingDefaultIfRequired(ValueOrError<T1> inputArgument)
         {
@@ -59,9 +67,14 @@ namespace Smooth.Foundations.Foundations.Structures
                 }
                 else
                 {
-                    _matchNotFoundAction(); 
+                    _matchNotFoundAction();
                 }
             }
+        }
+
+        public void InvokeMatchedOrDefaultAction(ValueOrError<T1> item)
+        {
+//            InvokeMatchedOrProvidedAction(item, _defaultAction);
         }
     }
 }
