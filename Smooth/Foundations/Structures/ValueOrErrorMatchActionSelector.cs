@@ -9,7 +9,7 @@ namespace Smooth.Foundations.Foundations.Structures
     public class ValueOrErrorMatchActionSelector<T1>
     {
         private readonly Action _matchNotFoundAction;
-        private Option<Action<string>> _onErrorAction = Option<Action<string>>.None;
+  
         private Option<Action<T1>> _onValueDefaultAction = Option<Action<T1>>.None;
 
         private readonly List<Tuple<DelegateFunc<T1, bool>, Action<T1>>> _testsAndActions =
@@ -23,13 +23,11 @@ namespace Smooth.Foundations.Foundations.Structures
             _matchNotFoundAction = matchNotFoundAction;
         }
 
-        public void SetErrorAction(Action<string> action) =>
-            _onErrorAction = new Option<Action<string>>(action);
-
+        
         public void SetDefaultOnValueAction(Action<T1> action) =>
             _onValueDefaultAction = new Option<Action<T1>>(action);
 
-        //Action<DelegateFunc<ValueOrError<T>, bool>, Action<T>>
+
         public void AddPredicateAndAction(DelegateFunc<T1, bool> test, Action<T1> action) =>
             _testsAndActions.Add(new Tuple<DelegateFunc<T1, bool>, Action<T1>>(test, action));
 
@@ -37,13 +35,13 @@ namespace Smooth.Foundations.Foundations.Structures
         _errorActions.Add(action);
 
 
-        public void InvokeMatchedActionUsingDefaultIfRequired(ValueOrError<T1> inputArgument)
+        public void InvokeMatchedOrDefaultAction(ValueOrError<T1> inputArgument)
         {
             if (inputArgument.IsError)
             {
-                if (_onErrorAction.isSome)
+                if (_errorActions.Count != 0)
                 {
-                    _onErrorAction.value(inputArgument.Error);
+                    _errorActions[0](inputArgument.Error);
                 }
                 else
                 {
@@ -70,11 +68,6 @@ namespace Smooth.Foundations.Foundations.Structures
                     _matchNotFoundAction();
                 }
             }
-        }
-
-        public void InvokeMatchedOrDefaultAction(ValueOrError<T1> item)
-        {
-//            InvokeMatchedOrProvidedAction(item, _defaultAction);
         }
     }
 }
