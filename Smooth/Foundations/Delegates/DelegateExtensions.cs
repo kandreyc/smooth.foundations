@@ -16,6 +16,7 @@ namespace Smooth.Delegates {
 		/// Calls the specified action with the specified value and parameter.
 		/// </summary>
 		public static void Apply<T, P>(this T t, DelegateAction<T, P> a, P p) {
+            
 			a(t, p);
 		}
 

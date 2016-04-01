@@ -19,9 +19,8 @@ namespace Smooth.Foundations.PatternMatching
 
         public TResult Result()
         {
-            return _selector
-                .DetermineResult(_value)
-                .ValueOr(_elseAction(_value));
+            var result = _selector.DetermineResult(_value);
+            return result.isSome ? result.value : _elseAction(_value);
         }
     }
 
@@ -42,9 +41,8 @@ namespace Smooth.Foundations.PatternMatching
 
         public TResult Result()
         {
-            return _selector
-                .DetermineResult(_value)
-                .ValueOr(_elseAction(_value.Item1, _value.Item2));
+            var result = _selector.DetermineResult(_value);
+            return result.isSome ? result.value : _elseAction(_value.Item1, _value.Item2);
         }
     }
 
@@ -65,9 +63,8 @@ namespace Smooth.Foundations.PatternMatching
 
         public TResult Result()
         {
-            return _selector
-                .DetermineResult(_value)
-                .ValueOr(_elseAction(_value.Item1, _value.Item2, _value.Item3));
+            var result = _selector.DetermineResult(_value);
+            return result.isSome ? result.value : _elseAction(_value.Item1, _value.Item2, _value.Item3);
         }
     }
 
@@ -88,9 +85,10 @@ namespace Smooth.Foundations.PatternMatching
 
         public TResult Result()
         {
-            return _selector
-                .DetermineResult(_value)
-                .ValueOr(_elseAction(_value.Item1, _value.Item2, _value.Item3, _value.Item4));
+            var result = _selector.DetermineResult(_value);
+            return result.isSome 
+                ? result.value 
+                : _elseAction(_value.Item1, _value.Item2, _value.Item3, _value.Item4);
         }
     }
 

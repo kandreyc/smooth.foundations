@@ -7,7 +7,8 @@ Smooth.Foundations includes:
 
 - Smooth.Compare, a replacement for the System.Collections.Generic comparers that helps reduce runtime allocations and prevent JIT exceptions on AOT platforms.
 - Smooth.Slinq, a faster, allocation-free replacement for LINQ with increased functionality and a more robust API.
-- Algebraic structs like Option<T>, Either<L, R>, and Tuple<T1, ..., Tn>.
+- Algebraic structs like Option<T>, Either<L, R>, Union <T1, T2, T3>, and Tuple<T1, ..., Tn>.
+- Pattern matching module based on David Arno's SuccincT
 - Generic pools with a delegate-based API.
 - Generic event helpers for creating and maintaining robust, type safe events backed by multicast delegates.
 - A disposal API for performing cleanup operations in a background thread during the rendering phase.
