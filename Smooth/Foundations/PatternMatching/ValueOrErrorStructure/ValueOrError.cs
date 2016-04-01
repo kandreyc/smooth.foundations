@@ -65,5 +65,51 @@ namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
                 ? ValueOrError<TResult>.FromError(Error)
                 : func();
         }
+
+        public ValueOrError<TResult> ContinueWith<TResult>(Func<ValueOrError<T>, ValueOrError<TResult>> func)
+        {
+            return IsError
+                ? ValueOrError<TResult>.FromError(Error)
+                : func(this);
+        }
+
+        public ValueOrError<TResult> ContinueWith<TResult>(Func<T, ValueOrError<TResult>> func)
+        {
+            return IsError
+                ? ValueOrError<TResult>.FromError(Error)
+                : func(Value);
+        }
+
+        public ValueOrError<TResult> ContinueWith<TResult>(Func<T, TResult> func)
+        {
+            if (IsError)
+            {
+                return ValueOrError<TResult>.FromError(Error);
+            }
+            try
+            {
+                return ValueOrError<TResult>.FromValue(func(Value));
+            }
+            catch (Exception e)
+            {
+                return ValueOrError<TResult>.FromError(e.Message);
+            }
+        }
+
+        public ValueOrError<TResult> ContinueWith<TResult, TU>(Func<T, TU, TResult> func, TU arg)
+        {
+            if (IsError)
+            {
+                return ValueOrError<TResult>.FromError(Error);
+            }
+            try
+            {
+                return ValueOrError<TResult>.FromValue(func(Value, arg));
+            }
+            catch (Exception e)
+            {
+                return ValueOrError<TResult>.FromError(e.Message);
+            }
+        }
     }
 }
