@@ -43,12 +43,13 @@ namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
         public void Test()
         {
             var testValue = ValueOrError<int>.FromValue(42);
-            testValue.Match()
+            var result = testValue.Match()
                 .Value().Where(i => i == 0).Do(i => Console.WriteLine($"{i} is zero"))
                 .Value().Where(i => i == 1).Do(i => Console.WriteLine($"{i} is one"))
                 .Value().Do(i => Console.WriteLine("other int"))
                 .Error().Do(_ => Console.WriteLine("some error has occured"))
-                .Exec();
+                .To<string>()
+                .Result();
         }
 
 

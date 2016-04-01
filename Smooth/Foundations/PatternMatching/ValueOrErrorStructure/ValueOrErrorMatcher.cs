@@ -22,5 +22,7 @@ namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
         public ErrorMatcher<T1> Error() => new ErrorMatcher<T1>(this, _actionSelector.AddErrorAction, _item.IsError);
         public void Exec() => _actionSelector.InvokeMatchedOrDefaultAction(_item);
 
+        public ValueOrErrorResultMatcher<T1, TResult> To<TResult>() => new ValueOrErrorResultMatcher<T1, TResult>(_item);
+
     }
 }

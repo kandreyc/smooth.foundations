@@ -51,6 +51,7 @@
     <Compile Include="Foundations\Algebraics\Tuple.cs" />
     <Compile Include="Foundations\Algebraics\Union.cs" />
     <Compile Include="Foundations\Algebraics\Unit.cs" />
+    <Compile Include="Foundations\PatternMatching\Options\OptionExample.cs" />
     <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\ErrorMatcher.cs" />
     <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\ValueMatcher.cs" />
     <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\ValueOrError.cs" />
@@ -108,6 +109,9 @@
     <Compile Include="Foundations\PatternMatching\ResultMatcher.cs" />
     <Compile Include="Foundations\PatternMatching\ResultMatcherWithElse.cs" />
     <Compile Include="Foundations\PatternMatching\SpecificTypeMatcherExtensions.cs" />
+    <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\ValueOrErrorMatchFunctionSelector.cs" />
+    <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\ValueOrErrorResultMatcher.cs" />
+    <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\WithForValueOrErrorHandler.cs" />
     <Compile Include="Foundations\PatternMatching\WhereForActionHandler.cs" />
     <Compile Include="Foundations\PatternMatching\WhereForFuncHandler.cs" />
     <Compile Include="Foundations\PatternMatching\WithForActionHandler.cs" />
