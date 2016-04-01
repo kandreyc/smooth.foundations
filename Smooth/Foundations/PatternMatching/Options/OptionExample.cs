@@ -15,6 +15,7 @@ namespace Smooth.Foundations.Foundations.PatternMatching.Options
             new Option<int>(54).Match()
                 .Some().Of(66).Or(44).Or(123).Do(i=> Console.WriteLine($"value={i}"))
                 .Some().Where(i=>i<13).Do(i=> Console.WriteLine($"value={i}"))
+                
                 .Exec();
 
             var result = "tata".Match()

@@ -111,6 +111,8 @@
     <Compile Include="Foundations\PatternMatching\SpecificTypeMatcherExtensions.cs" />
     <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\ValueOrErrorMatchFunctionSelector.cs" />
     <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\ValueOrErrorResultMatcher.cs" />
+    <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\ValueOrErrorResultMatcherWithElse.cs" />
+    <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\WhereForValueOrError.cs" />
     <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\WithForValueOrErrorHandler.cs" />
     <Compile Include="Foundations\PatternMatching\WhereForActionHandler.cs" />
     <Compile Include="Foundations\PatternMatching\WhereForFuncHandler.cs" />

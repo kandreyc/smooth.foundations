@@ -23,6 +23,14 @@ namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
         public void AddPredicateAndAction(DelegateFunc<T1, bool> test, DelegateFunc<T1, TResult> action) =>
             _predicatesAndFuncs.Add(new Tuple<DelegateFunc<T1, bool>, DelegateFunc<T1, TResult>>(test, action));
 
+        public Option<ValueOrError<TResult>> DetermineResult(ValueOrError<T1> value)
+        {
+            return _predicatesAndFuncs
+                .Slinq()
+                .FirstOrNone((tuple, p) => tuple.Item1(p.Value), value)
+                .Select((pair, p) => ValueOrError<TResult>.FromValue(pair.Item2(p.Value)), value);
+        }
+
         public ValueOrError<TResult> DetermineResultUsingDefaultIfRequired(ValueOrError<T1> value)
         {
             if (_isError) return ValueOrError<TResult>.FromError(value.Error);

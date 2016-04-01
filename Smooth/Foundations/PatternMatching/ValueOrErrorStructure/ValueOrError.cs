@@ -49,10 +49,11 @@ namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
                 .Value().Do(i => Console.WriteLine("other int"))
                 .Error().Do(_ => Console.WriteLine("some error has occured"))
                 .To<string>()
+                .With(555).Or(666).Do(i=> "i is 555 or 666")
+                .Where(i=>i >1000).Return(i=> "pop"+i)    
+                .Else(i=>"uiou")          
                 .Result();
         }
-
-
         public ValueOrErrorMatcher<T> Match()
         {
             return new ValueOrErrorMatcher<T>(this);
