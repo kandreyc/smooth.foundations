@@ -4,7 +4,7 @@ using Smooth.Algebraics;
 using Smooth.Delegates;
 using Smooth.Slinq;
 
-namespace Smooth.Foundations.Foundations.Structures
+namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
 {
     public class ValueOrErrorMatchActionSelector<T1>
     {

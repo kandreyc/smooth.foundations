@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Smooth.Foundations.Foundations.Structures
+namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
 {
     public struct ValueOrError<T>
     {
@@ -56,16 +56,6 @@ namespace Smooth.Foundations.Foundations.Structures
         {
             return new ValueOrErrorExecMatcher<T>(this);
         }
-
-        public ValueOrError<T> OnError(Func<T, bool> predicate, Action<T> action)
-        {
-            if (!IsError && predicate(Value))
-            {
-                action(Value);
-            }
-            return this;
-        }
-
 
         public ValueOrError<TResult> ContinueWith<TResult>(Func<ValueOrError<TResult>> func)
         {
