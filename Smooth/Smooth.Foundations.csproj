@@ -168,7 +168,7 @@
     <Compile Include="Foundations\Slinq\Test\UnionSlinq.cs" />
     <Compile Include="Foundations\Slinq\Test\WhereTakeSelectAggregateLinq.cs" />
     <Compile Include="Foundations\Slinq\Test\WhereTakeSelectAggregateSlinq.cs" />
-    <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\ValueOrErrorExecMatcher.cs" />
+    <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\ValueOrErrorMatcher.cs" />
     <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\ValueOrErrorMatchActionSelector.cs" />
     <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\WhereForValue.cs" />
   </ItemGroup>

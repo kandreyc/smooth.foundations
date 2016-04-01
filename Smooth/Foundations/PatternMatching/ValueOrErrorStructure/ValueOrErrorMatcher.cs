@@ -2,12 +2,12 @@
 
 namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
 {
-    public class ValueOrErrorExecMatcher<T1>
+    public class ValueOrErrorMatcher<T1>
     {
         private readonly ValueOrErrorMatchActionSelector<T1> _actionSelector;
         private readonly ValueOrError<T1> _item;
 
-        internal ValueOrErrorExecMatcher(ValueOrError<T1> item)
+        internal ValueOrErrorMatcher(ValueOrError<T1> item)
         {
             _item = item;
             _actionSelector = new ValueOrErrorMatchActionSelector<T1>(
@@ -21,5 +21,6 @@ namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
 
         public ErrorMatcher<T1> Error() => new ErrorMatcher<T1>(this, _actionSelector.AddErrorAction, _item.IsError);
         public void Exec() => _actionSelector.InvokeMatchedOrDefaultAction(_item);
+
     }
 }

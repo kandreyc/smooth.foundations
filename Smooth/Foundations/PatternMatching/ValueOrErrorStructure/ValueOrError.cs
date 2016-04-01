@@ -52,9 +52,9 @@ namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
         }
 
 
-        public ValueOrErrorExecMatcher<T> Match()
+        public ValueOrErrorMatcher<T> Match()
         {
-            return new ValueOrErrorExecMatcher<T>(this);
+            return new ValueOrErrorMatcher<T>(this);
         }
 
         public ValueOrError<TResult> ContinueWith<TResult>(Func<ValueOrError<TResult>> func)
