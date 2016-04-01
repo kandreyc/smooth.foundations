@@ -1,7 +1,7 @@
 ﻿using Smooth.Delegates;
 using Smooth.Foundations.PatternMatching;
 
-namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
+namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure.Function
 {
     public class ValueOrErrorResultMatcher<T1, TResult>
     {

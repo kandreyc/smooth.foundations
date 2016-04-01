@@ -1,6 +1,6 @@
 ﻿using Smooth.Delegates;
 
-namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
+namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure.Function
 {
     public class ValueOrErrorResultMatcherWithElse<T1, TResult>
     {

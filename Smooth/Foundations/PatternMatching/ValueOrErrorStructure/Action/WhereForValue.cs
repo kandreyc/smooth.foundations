@@ -1,12 +1,12 @@
 ﻿using System;
 using Smooth.Delegates;
 
-namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
+namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure.Action
 {
     public sealed class WhereForValue<T>
     {
         private readonly DelegateFunc<T, bool> _predicate;
-        private readonly Action<DelegateFunc<T, bool>, Action<T>> _addPredicateAndAction;
+        private readonly DelegateAction<DelegateFunc<T, bool>, DelegateAction<T>> _addPredicateAndAction;
         private readonly ValueOrErrorMatcher<T> _matcher;
         private readonly bool _isUseless;
 
@@ -16,7 +16,7 @@ namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
         }
 
         internal WhereForValue(DelegateFunc<T, bool> predicate,
-            Action<DelegateFunc<T, bool>, Action<T>> addPredicateAndAction,
+            DelegateAction<DelegateFunc<T, bool>, DelegateAction<T>> addPredicateAndAction,
             ValueOrErrorMatcher<T> matcher, bool isUseless = false)
         {
             _predicate = predicate;
@@ -25,7 +25,7 @@ namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
             _isUseless = isUseless;
         }
 
-        public ValueOrErrorMatcher<T> Do(Action<T> action)
+        public ValueOrErrorMatcher<T> Do(DelegateAction<T> action)
         {
             if (!_isUseless)
             {

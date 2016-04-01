@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Smooth.Delegates;
 using Smooth.Slinq;
 
-namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
+namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure.Function
 {
     public class WithForValueOrErrorHandler<TMatcher, T1, TResult>
     {

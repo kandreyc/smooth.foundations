@@ -1,4 +1,6 @@
-﻿using Smooth.Foundations.PatternMatching;
+﻿using Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure.Action;
+using Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure.Function;
+using Smooth.Foundations.PatternMatching;
 
 namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Smooth.Delegates;
 
-namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
+namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure.Function
 {
     public class WhereForValueOrError<TMatcher, T1, TResult>
     {

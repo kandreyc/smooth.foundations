@@ -1,22 +1,23 @@
 ﻿using System;
+using Smooth.Delegates;
 
-namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
+namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure.Action
 {
     public class ErrorMatcher<T>
     {
-        private readonly Action<Action<string>> _addAction;
+        private readonly DelegateAction<DelegateAction<string>> _addAction;
         private readonly ValueOrErrorMatcher<T> _matcher;
         private readonly bool _isError;
 
         public ErrorMatcher(ValueOrErrorMatcher<T> matcher,
-            Action<Action<string>> addAction, bool isError)
+            DelegateAction<DelegateAction<string>> addAction, bool isError)
         {
             _addAction = addAction;
             _matcher = matcher;
             _isError = isError;
         }
 
-        public ValueOrErrorMatcher<T> Do(Action<string> action)
+        public ValueOrErrorMatcher<T> Do(DelegateAction<string> action)
         {
             if (_isError)
             {

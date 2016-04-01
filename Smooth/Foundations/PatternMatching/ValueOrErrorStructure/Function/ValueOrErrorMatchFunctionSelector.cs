@@ -3,7 +3,7 @@ using Smooth.Algebraics;
 using Smooth.Delegates;
 using Smooth.Slinq;
 
-namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
+namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure.Function
 {
     public class ValueOrErrorMatchFunctionSelector<T1, TResult>
     {
