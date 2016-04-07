@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Smooth.Algebraics;
 using Smooth.Delegates;
 using Smooth.Slinq;
@@ -9,7 +8,7 @@ namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure.A
     public class ValueOrErrorMatchActionSelector<T1>
     {
         private readonly DelegateAction _matchNotFoundAction;
-  
+
         private Option<DelegateAction<T1>> _onValueDefaultAction = Option<DelegateAction<T1>>.None;
 
         private readonly List<Tuple<DelegateFunc<T1, bool>, DelegateAction<T1>>> _testsAndActions =
@@ -23,7 +22,7 @@ namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure.A
             _matchNotFoundAction = matchNotFoundAction;
         }
 
-        
+
         public void SetDefaultOnValueAction(DelegateAction<T1> action) =>
             _onValueDefaultAction = new Option<DelegateAction<T1>>(action);
 
@@ -32,7 +31,7 @@ namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure.A
             _testsAndActions.Add(new Tuple<DelegateFunc<T1, bool>, DelegateAction<T1>>(test, action));
 
         public void AddErrorAction(DelegateAction<string> action) =>
-        _errorActions.Add(action);
+            _errorActions.Add(action);
 
 
         public void InvokeMatchedOrDefaultAction(ValueOrError<T1> inputArgument)

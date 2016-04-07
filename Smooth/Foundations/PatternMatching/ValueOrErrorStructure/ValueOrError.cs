@@ -1,4 +1,5 @@
 ﻿using System;
+using Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure.Function;
 
 namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
 {
@@ -15,7 +16,6 @@ namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
                 return _value;
             }
         }
-
         public bool IsError { get; }
 
         public string Error { get; }
@@ -38,26 +38,17 @@ namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
             Error = error;
             IsError = isError;
         }
-
-
-        public void Test()
-        {
-            var testValue = ValueOrError<int>.FromValue(42);
-            var result = testValue.Match()
-                .Value().Where(i => i == 0).Do(i => Console.WriteLine($"{i} is zero"))
-                .Value().Where(i => i == 1).Do(i => Console.WriteLine($"{i} is one"))
-                .Value().Do(i => Console.WriteLine("other int"))
-                .Error().Do(_ => Console.WriteLine("some error has occured"))
-                .To<string>()
-                .With(555).Or(666).Do(i=> "i is 555 or 666")
-                .Where(i=>i >1000).Return(i=> "pop"+i)    
-                .Else(i=>"uiou")          
-                .Result();
-        }
+      
         public ValueOrErrorMatcher<T> Match()
         {
             return new ValueOrErrorMatcher<T>(this);
         }
+
+        public ValueOrErrorResultMatcher<T, TResult> MatchTo<TResult>()
+        {
+           return new ValueOrErrorResultMatcher<T, TResult>(this);
+        }
+
 
         public ValueOrError<TResult> ContinueWith<TResult>(Func<ValueOrError<TResult>> func)
         {

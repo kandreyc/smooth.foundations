@@ -1,5 +1,4 @@
-﻿using System;
-using Smooth.Delegates;
+﻿using Smooth.Delegates;
 
 namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure.Action
 {
