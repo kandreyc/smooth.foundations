@@ -114,6 +114,7 @@
     <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\Function\ValueOrErrorResultMatcherWithElse.cs" />
     <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\Function\WhereForValueOrError.cs" />
     <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\Function\WithForValueOrErrorHandler.cs" />
+    <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\ValueOrErrorExample.cs" />
     <Compile Include="Foundations\PatternMatching\WhereForActionHandler.cs" />
     <Compile Include="Foundations\PatternMatching\WhereForFuncHandler.cs" />
     <Compile Include="Foundations\PatternMatching\WithForActionHandler.cs" />
