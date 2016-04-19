@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using Smooth.Algebraics;
 using Smooth.Delegates;
+using Smooth.Foundations.Algebraics;
 using Smooth.Slinq;
 
-namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure.Action
+namespace Smooth.Foundations.PatternMatching.ValueOrError.Action
 {
     public class ValueOrErrorMatchActionSelector<T1>
     {

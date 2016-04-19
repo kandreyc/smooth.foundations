@@ -1,9 +1,20 @@
 ﻿using System;
-using Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure.Function;
+using System.Collections.Generic;
+using Smooth.Foundations.PatternMatching.ValueOrError;
+using Smooth.Foundations.PatternMatching.ValueOrError.Function;
 
-namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
+namespace Smooth.Foundations.Algebraics
 {
-    public struct ValueOrError<T>
+
+    public static class ValueOrError 
+    {
+        public static ValueOrError<T> FromValue<T>(T value)
+        {
+            return ValueOrError<T>.FromValue(value);
+        }
+    }
+
+    public struct ValueOrError<T> : IEquatable<ValueOrError<T>>
     {
         public T Value
         {
@@ -38,16 +49,6 @@ namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
             Error = error;
             IsError = isError;
         }
-      
-        public ValueOrErrorMatcher<T> Match()
-        {
-            return new ValueOrErrorMatcher<T>(this);
-        }
-
-        public ValueOrErrorResultMatcher<T, TResult> MatchTo<TResult>()
-        {
-           return new ValueOrErrorResultMatcher<T, TResult>(this);
-        }
 
 
         public ValueOrError<TResult> ContinueWith<TResult>(Func<ValueOrError<TResult>> func)
@@ -57,6 +58,13 @@ namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
                 : func();
         }
 
+        public ValueOrError<TResult> ContinueWith<TResult, T1>(Func<T1, ValueOrError<TResult>> func, T1 arg)
+        {
+            return IsError
+                ? ValueOrError<TResult>.FromError(Error)
+                : func(arg);
+        }
+
         public ValueOrError<TResult> ContinueWith<TResult>(Func<ValueOrError<T>, ValueOrError<TResult>> func)
         {
             return IsError
@@ -64,11 +72,25 @@ namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
                 : func(this);
         }
 
+        public ValueOrError<TResult> ContinueWith<TResult, T1>(Func<ValueOrError<T>, T1, ValueOrError<TResult>> func, T1 arg)
+        {
+            return IsError
+                ? ValueOrError<TResult>.FromError(Error)
+                : func(this, arg);
+        }
+
         public ValueOrError<TResult> ContinueWith<TResult>(Func<T, ValueOrError<TResult>> func)
         {
             return IsError
                 ? ValueOrError<TResult>.FromError(Error)
                 : func(Value);
+        }
+
+        public ValueOrError<TResult> ContinueWith<TResult, T1>(Func<T, T1, ValueOrError<TResult>> func, T1 arg)
+        {
+            return IsError
+                ? ValueOrError<TResult>.FromError(Error)
+                : func(Value, arg);
         }
 
         public ValueOrError<TResult> ContinueWith<TResult>(Func<T, TResult> func)
@@ -87,7 +109,7 @@ namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
             }
         }
 
-        public ValueOrError<TResult> ContinueWith<TResult, TU>(Func<T, TU, TResult> func, TU arg)
+        public ValueOrError<TResult> ContinueWith<TResult, T1>(Func<T, T1, TResult> func, T1 arg)
         {
             if (IsError)
             {
@@ -101,6 +123,38 @@ namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure
             {
                 return ValueOrError<TResult>.FromError(e.Message);
             }
+        }
+
+        public bool Equals(ValueOrError<T> other)
+        {
+            if (IsError)
+            {
+                return other.IsError && other.Error == Error;
+            }
+            return Collections.EqualityComparer<T>.Default.Equals(_value, other._value);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            return obj is ValueOrError<T> && Equals((ValueOrError<T>)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return IsError
+                ? Error.GetHashCode()
+                : Collections.EqualityComparer<T>.Default.GetHashCode(_value);
+        }
+
+        public static bool operator ==(ValueOrError<T> lhs, ValueOrError<T> rhs)
+        {
+            return lhs.Equals(rhs);
+        }
+
+        public static bool operator !=(ValueOrError<T> lhs, ValueOrError<T> rhs)
+        {
+            return !(lhs == rhs);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Smooth.Delegates;
+using Smooth.Foundations.Algebraics;
 
-namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure.Function
+namespace Smooth.Foundations.PatternMatching.ValueOrError.Function
 {
     public class ValueOrErrorResultMatcherWithElse<T1, TResult>
     {

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Smooth.Delegates;
+using Smooth.Foundations.Algebraics;
 using Smooth.Slinq;
 
-namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure.Function
+namespace Smooth.Foundations.PatternMatching.ValueOrError.Function
 {
     public class WithForValueOrErrorHandler<TMatcher, T1, TResult>
     {
@@ -30,7 +31,13 @@ namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure.F
             return this;
         }
 
-        public TMatcher Do(DelegateFunc<T1, TResult> action)
+        [Obsolete("Please use Return")]
+        public TMatcher Do(DelegateFunc<T1, TResult> action) => Return(action);
+
+        [Obsolete("Please use Return")]
+        public TMatcher Do(TResult value) => Return(value);
+
+        public TMatcher Return(DelegateFunc<T1, TResult> action)
         {
             _recorder(x => _values
                 .Slinq()
@@ -39,7 +46,7 @@ namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure.F
             return _matcher;
         }
 
-        public TMatcher Do(TResult value)
+        public TMatcher Return(TResult value)
         {
             _recorder(x => _values
                 .Slinq()

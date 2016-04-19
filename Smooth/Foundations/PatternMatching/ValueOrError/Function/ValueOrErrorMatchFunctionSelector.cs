@@ -1,29 +1,29 @@
 ﻿using System.Collections.Generic;
 using Smooth.Algebraics;
 using Smooth.Delegates;
+using Smooth.Foundations.Algebraics;
 using Smooth.Slinq;
 
-namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure.Function
+namespace Smooth.Foundations.PatternMatching.ValueOrError.Function
 {
-    public class ValueOrErrorMatchFunctionSelector<T1, TResult>
+    public sealed class ValueOrErrorMatchFunctionSelector<T, TResult>
     {
-        private readonly DelegateFunc<T1, TResult> _defaultFunction;
+        private readonly DelegateFunc<T, TResult> _defaultFunction;
 
-        private readonly List<Tuple<DelegateFunc<T1, bool>, DelegateFunc<T1, TResult>>> _predicatesAndFuncs =
-            new List<Tuple<DelegateFunc<T1, bool>, DelegateFunc<T1, TResult>>>();
-
+        private readonly List<Tuple<DelegateFunc<T, bool>, DelegateFunc<T, TResult>>> _predicatesAndFuncs;
         private readonly bool _isError;
 
-        public ValueOrErrorMatchFunctionSelector(DelegateFunc<T1, TResult> defaultFunction, bool isError)
+        public ValueOrErrorMatchFunctionSelector(DelegateFunc<T, TResult> defaultFunction, bool isError)
         {
             _defaultFunction = defaultFunction;
+            _predicatesAndFuncs = new List<Tuple<DelegateFunc<T, bool>, DelegateFunc<T, TResult>>>();
             _isError = isError;
         }
 
-        public void AddPredicateAndAction(DelegateFunc<T1, bool> test, DelegateFunc<T1, TResult> action) =>
-            _predicatesAndFuncs.Add(new Tuple<DelegateFunc<T1, bool>, DelegateFunc<T1, TResult>>(test, action));
+        public void AddPredicateAndAction(DelegateFunc<T, bool> test, DelegateFunc<T, TResult> action) =>
+            _predicatesAndFuncs.Add(new Tuple<DelegateFunc<T, bool>, DelegateFunc<T, TResult>>(test, action));
 
-        public Option<ValueOrError<TResult>> DetermineResult(ValueOrError<T1> value)
+        public Option<ValueOrError<TResult>> DetermineResult(ValueOrError<T> value)
         {
             return _predicatesAndFuncs
                 .Slinq()
@@ -31,7 +31,7 @@ namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure.F
                 .Select((pair, p) => ValueOrError<TResult>.FromValue(pair.Item2(p.Value)), value);
         }
 
-        public ValueOrError<TResult> DetermineResultUsingDefaultIfRequired(ValueOrError<T1> value)
+        public ValueOrError<TResult> DetermineResultUsingDefaultIfRequired(ValueOrError<T> value)
         {
             if (_isError) return ValueOrError<TResult>.FromError(value.Error);
 

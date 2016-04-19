@@ -51,9 +51,9 @@
     <Compile Include="Foundations\Algebraics\Tuple.cs" />
     <Compile Include="Foundations\Algebraics\Union.cs" />
     <Compile Include="Foundations\Algebraics\Unit.cs" />
-    <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\Action\ErrorMatcher.cs" />
-    <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\Action\ValueMatcher.cs" />
-    <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\ValueOrError.cs" />
+    <Compile Include="Foundations\PatternMatching\ValueOrError\Action\ErrorMatcher.cs" />
+    <Compile Include="Foundations\PatternMatching\ValueOrError\Action\ValueMatcher.cs" />
+    <Compile Include="Foundations\Algebraics\ValueOrError.cs" />
     <Compile Include="Foundations\Algebraics\Variant.cs" />
     <Compile Include="Foundations\Collections\Comparer.cs" />
     <Compile Include="Foundations\Collections\CreateWithComparer.cs" />
@@ -108,11 +108,13 @@
     <Compile Include="Foundations\PatternMatching\ResultMatcher.cs" />
     <Compile Include="Foundations\PatternMatching\ResultMatcherWithElse.cs" />
     <Compile Include="Foundations\PatternMatching\SpecificTypeMatcherExtensions.cs" />
-    <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\Function\ValueOrErrorMatchFunctionSelector.cs" />
-    <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\Function\ValueOrErrorResultMatcher.cs" />
-    <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\Function\ValueOrErrorResultMatcherWithElse.cs" />
-    <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\Function\WhereForValueOrError.cs" />
-    <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\Function\WithForValueOrErrorHandler.cs" />
+    <Compile Include="Foundations\PatternMatching\ValueOrError\Action\WIthForValueActionHandler.cs" />
+    <Compile Include="Foundations\PatternMatching\ValueOrError\Function\ValueOrErrorMatchFunctionSelector.cs" />
+    <Compile Include="Foundations\PatternMatching\ValueOrError\Function\ValueOrErrorResultMatcher.cs" />
+    <Compile Include="Foundations\PatternMatching\ValueOrError\Function\ValueOrErrorResultMatcherWithElse.cs" />
+    <Compile Include="Foundations\PatternMatching\ValueOrError\Function\WhereForValueOrError.cs" />
+    <Compile Include="Foundations\PatternMatching\ValueOrError\Function\WithForValueOrErrorHandler.cs" />
+    <Compile Include="Foundations\PatternMatching\ValueOrError\ValueOrErrorExtensions.cs" />
     <Compile Include="Foundations\PatternMatching\WhereForActionHandler.cs" />
     <Compile Include="Foundations\PatternMatching\WhereForFuncHandler.cs" />
     <Compile Include="Foundations\PatternMatching\WithForActionHandler.cs" />
@@ -173,9 +175,9 @@
     <Compile Include="Foundations\Slinq\Test\UnionSlinq.cs" />
     <Compile Include="Foundations\Slinq\Test\WhereTakeSelectAggregateLinq.cs" />
     <Compile Include="Foundations\Slinq\Test\WhereTakeSelectAggregateSlinq.cs" />
-    <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\ValueOrErrorMatcher.cs" />
-    <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\Action\ValueOrErrorMatchActionSelector.cs" />
-    <Compile Include="Foundations\PatternMatching\ValueOrErrorStructure\Action\WhereForValue.cs" />
+    <Compile Include="Foundations\PatternMatching\ValueOrError\ValueOrErrorMatcher.cs" />
+    <Compile Include="Foundations\PatternMatching\ValueOrError\Action\ValueOrErrorMatchActionSelector.cs" />
+    <Compile Include="Foundations\PatternMatching\ValueOrError\Action\WhereForValue.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Foundations\Slinq\Test\SlinqTest.unity" />

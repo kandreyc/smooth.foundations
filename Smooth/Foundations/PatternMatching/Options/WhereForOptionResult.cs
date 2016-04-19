@@ -19,13 +19,19 @@ namespace Smooth.Foundations.PatternMatching.Options
             _matcher = matcher;
         }
 
-        public ResultOptionMatcher<T, TResult> Do(TResult result)
+        [Obsolete("Please use return")]
+        public ResultOptionMatcher<T, TResult> Do(TResult result) => Return(result);
+
+        [Obsolete("Please use return")]
+        public ResultOptionMatcher<T, TResult> Do(DelegateFunc<T, TResult> func) => Return(func);
+
+        public ResultOptionMatcher<T, TResult> Return(TResult result)
         {
             _predicateAndResultManager.AddPredicateAndResult(o => o.isSome && _predicate(o.value), result);
             return _matcher;
         } 
 
-        public ResultOptionMatcher<T, TResult> Do(DelegateFunc<T, TResult> func)
+        public ResultOptionMatcher<T, TResult> Return(DelegateFunc<T, TResult> func)
         {
             _predicateAndResultManager.AddPredicateAndValueFunc(o => o.isSome && _predicate(o.value), func);
             return _matcher;

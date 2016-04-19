@@ -1,6 +1,6 @@
 ﻿using Smooth.Delegates;
 
-namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure.Action
+namespace Smooth.Foundations.PatternMatching.ValueOrError.Action
 {
     public sealed class WhereForValue<T>
     {
@@ -28,7 +28,8 @@ namespace Smooth.Foundations.Foundations.PatternMatching.ValueOrErrorStructure.A
         {
             if (!_isUseless)
             {
-                _addPredicateAndAction(o => _predicate(o), action);
+                var predicate = _predicate;
+                _addPredicateAndAction(o => predicate(o), action);
             }
             return _matcher;
         }
