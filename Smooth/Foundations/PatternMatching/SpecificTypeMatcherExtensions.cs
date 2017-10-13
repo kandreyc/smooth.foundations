@@ -23,7 +23,7 @@ namespace Smooth.Foundations.PatternMatching
 
         public static OptionMatcher<T> Match<T>(this Option<T> item) => new OptionMatcher<T>(item);
 
-        public static ResultOptionMatcher<T, TResult> Match<T, TResult>(this Option<T> item) =>
+        public static ResultOptionMatcher<T, TResult> MatchTo<T, TResult>(this Option<T> item) =>
             new ResultOptionMatcher<T, TResult>(item);
     }
 }

@@ -5,8 +5,11 @@ namespace Smooth.Algebraics {
 	/// <summary>
 	/// Represents a type that holds no information.  Units have no state, and all instances of Unit are considered equal.
 	/// </summary>
-	public struct Unit : IComparable<Unit>, IEquatable<Unit> {
-		public override bool Equals(object o) { return o is Unit; }
+	public struct Unit : IComparable<Unit>, IEquatable<Unit>
+    {
+	    public static Unit Default { get; } = new Unit();
+
+	    public override bool Equals(object o) { return o is Unit; }
 		
 		public bool Equals(Unit other) { return true; }
 		

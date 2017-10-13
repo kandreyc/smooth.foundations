@@ -8,5 +8,7 @@
     public static class GeneralMatcherExtensions
     {
         public static ExecMatcher<T> Match<T>(this T item) => new ExecMatcher<T>(item);
+
+        public static ResultMatcher<T, TResult> MatchTo<T, TResult>(this T item) => new ResultMatcher<T, TResult>(item); 
     }
 }

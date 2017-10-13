@@ -27,7 +27,13 @@ namespace Smooth.Foundations.PatternMatching
             return this;
         }
 
-        public TMatcher Do(DelegateFunc<T1, TResult> action)
+        [Obsolete("Please use return")]
+        public TMatcher Do(TResult result) => Return(result);
+
+        [Obsolete("Please use return")]
+        public TMatcher Do(DelegateFunc<T1, TResult> func) => Return(func);
+
+        public TMatcher Return(DelegateFunc<T1, TResult> action)
         {
             _recorder(x => _values
                 .Slinq()
@@ -36,7 +42,7 @@ namespace Smooth.Foundations.PatternMatching
             return _matcher;
         }
 
-        public TMatcher Do(TResult value)
+        public TMatcher Return(TResult value)
         {
             _recorder(x => _values
                 .Slinq()
@@ -70,7 +76,13 @@ namespace Smooth.Foundations.PatternMatching
             return this;
         }
 
-        public TMatcher Do(DelegateFunc<T1, T2, TResult> action)
+        [Obsolete("Please use return")]
+        public TMatcher Do(TResult result) => Return(result);
+
+        [Obsolete("Please use return")]
+        public TMatcher Do(DelegateFunc<T1, T2, TResult> func) => Return(func);
+
+        public TMatcher Return(DelegateFunc<T1, T2, TResult> action)
         {
             _recorder((x, y) =>
                 _values
@@ -79,7 +91,7 @@ namespace Smooth.Foundations.PatternMatching
             return _matcher;
         }
 
-        public TMatcher Do(TResult value)
+        public TMatcher Return(TResult value)
         {
             _recorder((x, y) =>
                 _values
@@ -113,7 +125,13 @@ namespace Smooth.Foundations.PatternMatching
             return this;
         }
 
-        public TMatcher Do(DelegateFunc<T1, T2, T3, TResult> action)
+        [Obsolete("Please use return")]
+        public TMatcher Do(TResult result) => Return(result);
+
+        [Obsolete("Please use return")]
+        public TMatcher Do(DelegateFunc<T1, T2, T3, TResult> func) => Return(func);
+
+        public TMatcher Return(DelegateFunc<T1, T2, T3, TResult> action)
         {
             _recorder((x, y, z) =>
                 _values
@@ -122,7 +140,7 @@ namespace Smooth.Foundations.PatternMatching
             return _matcher;
         }
 
-        public TMatcher Do(TResult value)
+        public TMatcher Return(TResult value)
         {
             _recorder((x, y, z) =>
                 _values
@@ -156,7 +174,13 @@ namespace Smooth.Foundations.PatternMatching
             return this;
         }
 
-        public TMatcher Do(DelegateFunc<T1, T2, T3, T4, TResult> action)
+        [Obsolete("Please use return")]
+        public TMatcher Do(TResult result) => Return(result);
+
+        [Obsolete("Please use return")]
+        public TMatcher Do(DelegateFunc<T1, T2, T3, T4, TResult> func) => Return(func);
+
+        public TMatcher Return(DelegateFunc<T1, T2, T3, T4, TResult> action)
         {
             _recorder((w, x, y, z) =>
                 _values
@@ -165,7 +189,7 @@ namespace Smooth.Foundations.PatternMatching
             return _matcher;
         }
 
-        public TMatcher Do(TResult value)
+        public TMatcher Return(TResult value)
         {
             _recorder((w, x, y, z) =>
                 _values

@@ -16,13 +16,19 @@ namespace Smooth.Foundations.PatternMatching.Options
             _matcher = matcher;
         }
 
-        public ResultOptionMatcher<T, TResult> Do(TResult result)
+        [Obsolete("Please use return")]
+        public ResultOptionMatcher<T, TResult> Do(TResult result) => Return(result);
+
+        [Obsolete("Please use return")]
+        public ResultOptionMatcher<T, TResult> Do(DelegateFunc<TResult> func) => Return(func);
+
+        public ResultOptionMatcher<T, TResult> Return(TResult result)
         {
             _addPredicateAndFunc.AddPredicateAndResult(o => o.isNone, result);
             return _matcher;
         }
 
-        public ResultOptionMatcher<T, TResult> Do(DelegateFunc<TResult> result)
+        public ResultOptionMatcher<T, TResult> Return(DelegateFunc<TResult> result)
         {
             _addPredicateAndFunc.AddPredicateAndOptionFunc(o => o.isNone, o => result());
             return _matcher;

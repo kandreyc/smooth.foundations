@@ -15,6 +15,7 @@ namespace Smooth.Foundations.PatternMatching.Options
                 { throw new NoMatchException($"No match action exists for value of {x}"); });
         }
 
+        public ResultOptionMatcher<T, TResult> To<TResult>() => new ResultOptionMatcher<T, TResult>(_item);
         public SomeMatcher<T> Some() => new SomeMatcher<T>(this, _actionSelector.AddPredicateAndAction);
         public NoneMatcher<T> None() => new NoneMatcher<T>(this, _actionSelector.AddPredicateAndAction); 
         public OptionMatcherAfterElse<T> Else(Action<Option<T>> elseAction) => 
