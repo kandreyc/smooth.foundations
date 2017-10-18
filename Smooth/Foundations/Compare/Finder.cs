@@ -40,10 +40,10 @@ namespace Smooth.Compare {
 				switch(Type.GetTypeCode(type)) {
 				case TypeCode.Int64:
 				case TypeCode.UInt64:
-					Register<T>(new Blittable64EqualityComparer<T>());
+					Register<T>(new EnumEmitEqualityComparer<T>());
 					break;
 				default:
-					Register<T>(new Blittable32EqualityComparer<T>());
+					Register<T>(new EnumEmitEqualityComparer<T>());
 					break;
 				}
 			} else {

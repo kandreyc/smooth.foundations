@@ -214,9 +214,9 @@ namespace Smooth.Compare {
 			switch(Type.GetTypeCode(type)) {
 			case TypeCode.Int64:
 			case TypeCode.UInt64:
-				return new Blittable64EqualityComparer<T>();
+				return new EnumEmitEqualityComparer<T>();
 			default:
-				return new Blittable32EqualityComparer<T>();
+				return new EnumEmitEqualityComparer<T>();
 			}
 		}
 		
