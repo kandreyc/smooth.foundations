@@ -6,9 +6,9 @@ namespace Smooth.Foundations.PatternMatching.Options
 {
     public sealed class WhereForOption<T>
     {
-        private readonly DelegateFunc<T, bool> _predicate;
         private readonly Action<DelegateFunc<Option<T>, bool>, Action<T>> _addPredicateAndAction;
         private readonly OptionMatcher<T> _matcher;
+        private readonly DelegateFunc<T, bool> _predicate;
 
         internal WhereForOption(DelegateFunc<T, bool> predicate,
             Action<DelegateFunc<Option<T>, bool>, Action<T>> addPredicateAndAction,

@@ -1,5 +1,4 @@
-﻿using System;
-using Smooth.Algebraics;
+﻿using Smooth.Algebraics;
 using Smooth.Delegates;
 
 namespace Smooth.Foundations.PatternMatching.Options
@@ -17,18 +16,30 @@ namespace Smooth.Foundations.PatternMatching.Options
                 throw new NoMatchException($"No match exist for value of {x}");
             });
         }
-        public SomeMatcherResult<T, TResult> Some() => 
-            new SomeMatcherResult<T, TResult>(this, _funcSelector);
-        public NoneMatcherResult<T, TResult> None() => 
-            new NoneMatcherResult<T, TResult>(this, _funcSelector);
-        
-        public ResultOptionMatcherAfterElse<T, TResult> Else(DelegateFunc<Option<T>, TResult> elseResult) => 
-            new ResultOptionMatcherAfterElse<T, TResult>(_funcSelector, elseResult, _item);
 
-        public ResultOptionMatcherAfterElse<T, TResult> Else(TResult elseResult) =>
-            new ResultOptionMatcherAfterElse<T, TResult>(_funcSelector, elseResult, _item);
+        public SomeMatcherResult<T, TResult> Some()
+        {
+            return new SomeMatcherResult<T, TResult>(this, _funcSelector);
+        }
 
-        public TResult Result() => _funcSelector.GetMatchedOrDefaultResult(_item);
+        public NoneMatcherResult<T, TResult> None()
+        {
+            return new NoneMatcherResult<T, TResult>(this, _funcSelector);
+        }
 
+        public ResultOptionMatcherAfterElse<T, TResult> Else(DelegateFunc<Option<T>, TResult> elseResult)
+        {
+            return new ResultOptionMatcherAfterElse<T, TResult>(_funcSelector, elseResult, _item);
+        }
+
+        public ResultOptionMatcherAfterElse<T, TResult> Else(TResult elseResult)
+        {
+            return new ResultOptionMatcherAfterElse<T, TResult>(_funcSelector, elseResult, _item);
+        }
+
+        public TResult Result()
+        {
+            return _funcSelector.GetMatchedOrDefaultResult(_item);
+        }
     }
 }

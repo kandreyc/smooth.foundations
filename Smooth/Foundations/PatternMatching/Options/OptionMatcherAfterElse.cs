@@ -5,11 +5,12 @@ namespace Smooth.Foundations.PatternMatching.Options
 {
     public sealed class OptionMatcherAfterElse<T>
     {
-        private readonly Option<T> _item;
-        private readonly Action<Option<T>> _elseAction;
         private readonly ActionSelectorForOption<T> _actionSelector;
+        private readonly Action<Option<T>> _elseAction;
+        private readonly Option<T> _item;
 
-        internal OptionMatcherAfterElse(ActionSelectorForOption<T> actionSelector, Action<Option<T>> elseAction, Option<T> item)
+        internal OptionMatcherAfterElse(ActionSelectorForOption<T> actionSelector, Action<Option<T>> elseAction,
+            Option<T> item)
         {
             _actionSelector = actionSelector;
             _elseAction = elseAction;

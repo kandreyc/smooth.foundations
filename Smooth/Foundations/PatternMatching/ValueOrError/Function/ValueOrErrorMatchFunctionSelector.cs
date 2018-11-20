@@ -9,9 +9,9 @@ namespace Smooth.Foundations.PatternMatching.ValueOrError.Function
     public sealed class ValueOrErrorMatchFunctionSelector<T, TResult>
     {
         private readonly DelegateFunc<T, TResult> _defaultFunction;
+        private readonly bool _isError;
 
         private readonly List<Tuple<DelegateFunc<T, bool>, DelegateFunc<T, TResult>>> _predicatesAndFuncs;
-        private readonly bool _isError;
 
         public ValueOrErrorMatchFunctionSelector(DelegateFunc<T, TResult> defaultFunction, bool isError)
         {
@@ -20,8 +20,10 @@ namespace Smooth.Foundations.PatternMatching.ValueOrError.Function
             _isError = isError;
         }
 
-        public void AddPredicateAndAction(DelegateFunc<T, bool> test, DelegateFunc<T, TResult> action) =>
+        public void AddPredicateAndAction(DelegateFunc<T, bool> test, DelegateFunc<T, TResult> action)
+        {
             _predicatesAndFuncs.Add(new Tuple<DelegateFunc<T, bool>, DelegateFunc<T, TResult>>(test, action));
+        }
 
         public Option<ValueOrError<TResult>> DetermineResult(ValueOrError<T> value)
         {

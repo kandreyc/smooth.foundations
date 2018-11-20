@@ -9,8 +9,10 @@ namespace Smooth.Foundations.PatternMatching.Options
     internal sealed class ActionSelectorForOption<T>
     {
         private readonly Action<Option<T>> _defaultAction;
-        private readonly List<Tuple<DelegateFunc<Option<T>, bool>, Either<Action<T>, Action<Option<T>>>>>  _predicatesAndActions = 
-            new List<Tuple<DelegateFunc<Option<T>, bool>, Either<Action<T>, Action<Option<T>>>>>();
+
+        private readonly List<Tuple<DelegateFunc<Option<T>, bool>, Either<Action<T>, Action<Option<T>>>>>
+            _predicatesAndActions =
+                new List<Tuple<DelegateFunc<Option<T>, bool>, Either<Action<T>, Action<Option<T>>>>>();
 
         public ActionSelectorForOption(Action<Option<T>> defaultAction)
         {
@@ -45,15 +47,12 @@ namespace Smooth.Foundations.PatternMatching.Options
                 elseAction(item);
                 return;
             }
+
             var action = actionOption.value;
             if (action.isLeft)
-            {
                 action.leftValue(item.value);
-            }
             else
-            {
                 action.rightValue(item);
-            }
         }
     }
 }

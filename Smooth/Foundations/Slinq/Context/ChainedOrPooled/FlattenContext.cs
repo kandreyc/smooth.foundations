@@ -1,178 +1,182 @@
-using System;
 using Smooth.Algebraics;
 
-namespace Smooth.Slinq.Context {
-	
-	#region Slinq
-	
-	public struct FlattenContext<T, C1, C2> {
+namespace Smooth.Slinq.Context
+{
+    #region Slinq
 
-		#region Slinqs
+    public struct FlattenContext<T, C1, C2>
+    {
+        #region Slinqs
 
-		public static Slinq<T, FlattenContext<T, C1, C2>> Flatten(Slinq<Slinq<T, C1>, C2> slinq) {
-			return new Slinq<T, FlattenContext<T, C1, C2>>(
-				skip,
-				remove,
-				dispose,
-				new FlattenContext<T, C1, C2>(slinq));
-		}
+        public static Slinq<T, FlattenContext<T, C1, C2>> Flatten(Slinq<Slinq<T, C1>, C2> slinq)
+        {
+            return new Slinq<T, FlattenContext<T, C1, C2>>(
+                skip,
+                remove,
+                dispose,
+                new FlattenContext<T, C1, C2>(slinq));
+        }
 
-		#endregion
+        #endregion
 
-		#region Context
-		
-		private bool needsMove;
-		private Slinq<Slinq<T, C1>, C2> chained;
-		private Slinq<T, C1> selected;
+        #region Context
 
-		#pragma warning disable 0414
-		private BacktrackDetector bd;
-		#pragma warning restore 0414
+        private bool needsMove;
+        private Slinq<Slinq<T, C1>, C2> chained;
+        private Slinq<T, C1> selected;
 
-		private FlattenContext(Slinq<Slinq<T, C1>, C2> chained) {
-			this.needsMove = false;
-			this.chained = chained;
-			this.selected = chained.current.isSome ? chained.current.value : new Slinq<T, C1>();
+#pragma warning disable 0414
+        private BacktrackDetector bd;
+#pragma warning restore 0414
 
-			this.bd = BacktrackDetector.Borrow();
-		}
-		
-		#endregion
-		
-		#region Delegates
+        private FlattenContext(Slinq<Slinq<T, C1>, C2> chained)
+        {
+            needsMove = false;
+            this.chained = chained;
+            selected = chained.current.isSome ? chained.current.value : new Slinq<T, C1>();
 
-		private static readonly Mutator<T, FlattenContext<T, C1, C2>> skip = Skip;
-		private static readonly Mutator<T, FlattenContext<T, C1, C2>> remove = Remove;
-		private static readonly Mutator<T, FlattenContext<T, C1, C2>> dispose = Dispose;
+            bd = BacktrackDetector.Borrow();
+        }
 
-		private static void Skip(ref FlattenContext<T, C1, C2> context, out Option<T> next) {
-			context.bd.DetectBacktrack();
-			
-			if (context.needsMove) {
-				context.selected.skip(ref context.selected.context, out context.selected.current);
-			} else {
-				context.needsMove = true;
-			}
+        #endregion
 
-			if (!context.selected.current.isSome && context.chained.current.isSome) {
-				context.chained.skip(ref context.chained.context, out context.chained.current);
-				while (context.chained.current.isSome) {
-					context.selected = context.chained.current.value;
-					if (context.selected.current.isSome) {
-						break;
-					} else {
-						context.chained.skip(ref context.chained.context, out context.chained.current);
-					}
-				}
-			}
+        #region Delegates
 
-			next = context.selected.current;
-			
-			if (!next.isSome) {
-				context.bd.Release();
-			}
-		}
+        private static readonly Mutator<T, FlattenContext<T, C1, C2>> skip = Skip;
+        private static readonly Mutator<T, FlattenContext<T, C1, C2>> remove = Remove;
+        private static readonly Mutator<T, FlattenContext<T, C1, C2>> dispose = Dispose;
 
-		private static void Remove(ref FlattenContext<T, C1, C2> context, out Option<T> next) {
-			context.bd.DetectBacktrack();
-			
-			context.needsMove = false;
-			context.selected.remove(ref context.selected.context, out context.selected.current);
-			Skip(ref context, out next);
-		}
-		
-		private static void Dispose(ref FlattenContext<T, C1, C2> context, out Option<T> next) {
-			next = new Option<T>();
-			context.bd.Release();
-			context.chained.dispose(ref context.chained.context, out context.chained.current);
-			context.selected.dispose(ref context.selected.context, out context.selected.current);
-		}
+        private static void Skip(ref FlattenContext<T, C1, C2> context, out Option<T> next)
+        {
+            context.bd.DetectBacktrack();
 
-		#endregion
+            if (context.needsMove)
+                context.selected.skip(ref context.selected.context, out context.selected.current);
+            else
+                context.needsMove = true;
 
-	}
-	
-	#endregion
+            if (!context.selected.current.isSome && context.chained.current.isSome)
+            {
+                context.chained.skip(ref context.chained.context, out context.chained.current);
+                while (context.chained.current.isSome)
+                {
+                    context.selected = context.chained.current.value;
+                    if (context.selected.current.isSome)
+                        break;
+                    context.chained.skip(ref context.chained.context, out context.chained.current);
+                }
+            }
 
-	#region Option
-	
-	public struct FlattenContext<T, C> {
-		
-		#region Slinqs
-		
-		public static Slinq<T, FlattenContext<T, C>> Flatten(Slinq<Option<T>, C> slinq) {
-			return new Slinq<T, FlattenContext<T, C>>(
-				skip,
-				remove,
-				dispose,
-				new FlattenContext<T, C>(slinq));
-		}
-		
-		#endregion
-		
-		#region Context
-		
-		private bool needsMove;
-		private Slinq<Option<T>, C> chained;
+            next = context.selected.current;
 
-		#pragma warning disable 0414
-		private BacktrackDetector bd;
-		#pragma warning restore 0414
-		
-		private FlattenContext(Slinq<Option<T>, C> chained) {
-			this.needsMove = false;
-			this.chained = chained;
+            if (!next.isSome) context.bd.Release();
+        }
 
-			this.bd = BacktrackDetector.Borrow();
-		}
-		
-		#endregion
-		
-		#region Delegates
-		
-		private static readonly Mutator<T, FlattenContext<T, C>> skip = Skip;
-		private static readonly Mutator<T, FlattenContext<T, C>> remove = Remove;
-		private static readonly Mutator<T, FlattenContext<T, C>> dispose = Dispose;
-		
-		private static void Skip(ref FlattenContext<T, C> context, out Option<T> next) {
-			context.bd.DetectBacktrack();
-			
-			if (context.needsMove) {
-				context.chained.skip(ref context.chained.context, out context.chained.current);
-			} else {
-				context.needsMove = true;
-			}
-			
-			while (context.chained.current.isSome && !context.chained.current.value.isSome) {
-				context.chained.skip(ref context.chained.context, out context.chained.current);
-			}
+        private static void Remove(ref FlattenContext<T, C1, C2> context, out Option<T> next)
+        {
+            context.bd.DetectBacktrack();
 
-			if (context.chained.current.isSome) {
-				next = context.chained.current.value;
-			} else {
-				next = new Option<T>();
-				context.bd.Release();
-			}
-		}
-		
-		private static void Remove(ref FlattenContext<T, C> context, out Option<T> next) {
-			context.bd.DetectBacktrack();
-			
-			context.needsMove = false;
-			context.chained.remove(ref context.chained.context, out context.chained.current);
-			Skip(ref context, out next);
-		}
-		
-		private static void Dispose(ref FlattenContext<T, C> context, out Option<T> next) {
-			next = new Option<T>();
-			context.bd.Release();
-			context.chained.dispose(ref context.chained.context, out context.chained.current);
-		}
-		
-		#endregion
-		
-	}
-	
-	#endregion
-	
+            context.needsMove = false;
+            context.selected.remove(ref context.selected.context, out context.selected.current);
+            Skip(ref context, out next);
+        }
+
+        private static void Dispose(ref FlattenContext<T, C1, C2> context, out Option<T> next)
+        {
+            next = new Option<T>();
+            context.bd.Release();
+            context.chained.dispose(ref context.chained.context, out context.chained.current);
+            context.selected.dispose(ref context.selected.context, out context.selected.current);
+        }
+
+        #endregion
+    }
+
+    #endregion
+
+    #region Option
+
+    public struct FlattenContext<T, C>
+    {
+        #region Slinqs
+
+        public static Slinq<T, FlattenContext<T, C>> Flatten(Slinq<Option<T>, C> slinq)
+        {
+            return new Slinq<T, FlattenContext<T, C>>(
+                skip,
+                remove,
+                dispose,
+                new FlattenContext<T, C>(slinq));
+        }
+
+        #endregion
+
+        #region Context
+
+        private bool needsMove;
+        private Slinq<Option<T>, C> chained;
+
+#pragma warning disable 0414
+        private BacktrackDetector bd;
+#pragma warning restore 0414
+
+        private FlattenContext(Slinq<Option<T>, C> chained)
+        {
+            needsMove = false;
+            this.chained = chained;
+
+            bd = BacktrackDetector.Borrow();
+        }
+
+        #endregion
+
+        #region Delegates
+
+        private static readonly Mutator<T, FlattenContext<T, C>> skip = Skip;
+        private static readonly Mutator<T, FlattenContext<T, C>> remove = Remove;
+        private static readonly Mutator<T, FlattenContext<T, C>> dispose = Dispose;
+
+        private static void Skip(ref FlattenContext<T, C> context, out Option<T> next)
+        {
+            context.bd.DetectBacktrack();
+
+            if (context.needsMove)
+                context.chained.skip(ref context.chained.context, out context.chained.current);
+            else
+                context.needsMove = true;
+
+            while (context.chained.current.isSome && !context.chained.current.value.isSome)
+                context.chained.skip(ref context.chained.context, out context.chained.current);
+
+            if (context.chained.current.isSome)
+            {
+                next = context.chained.current.value;
+            }
+            else
+            {
+                next = new Option<T>();
+                context.bd.Release();
+            }
+        }
+
+        private static void Remove(ref FlattenContext<T, C> context, out Option<T> next)
+        {
+            context.bd.DetectBacktrack();
+
+            context.needsMove = false;
+            context.chained.remove(ref context.chained.context, out context.chained.current);
+            Skip(ref context, out next);
+        }
+
+        private static void Dispose(ref FlattenContext<T, C> context, out Option<T> next)
+        {
+            next = new Option<T>();
+            context.bd.Release();
+            context.chained.dispose(ref context.chained.context, out context.chained.current);
+        }
+
+        #endregion
+    }
+
+    #endregion
 }

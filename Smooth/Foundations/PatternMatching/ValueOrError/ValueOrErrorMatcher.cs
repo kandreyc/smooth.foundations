@@ -16,15 +16,27 @@ namespace Smooth.Foundations.PatternMatching.ValueOrError
                 () => { throw new NoMatchException($"No match action exists for value of {item}"); });
         }
 
-        public ValueMatcher<T> Value() => new ValueMatcher<T>(this,
-            _actionSelector.AddPredicateAndAction,
-            _actionSelector.SetDefaultOnValueAction,
-            _item.IsError);
+        public ValueMatcher<T> Value()
+        {
+            return new ValueMatcher<T>(this,
+                _actionSelector.AddPredicateAndAction,
+                _actionSelector.SetDefaultOnValueAction,
+                _item.IsError);
+        }
 
-        public ErrorMatcher<T> Error() => new ErrorMatcher<T>(this, _actionSelector.AddErrorAction, _item.IsError);
+        public ErrorMatcher<T> Error()
+        {
+            return new ErrorMatcher<T>(this, _actionSelector.AddErrorAction, _item.IsError);
+        }
 
-        public ValueOrErrorResultMatcher<T, TResult> To<TResult>() => new ValueOrErrorResultMatcher<T, TResult>(_item);
+        public ValueOrErrorResultMatcher<T, TResult> To<TResult>()
+        {
+            return new ValueOrErrorResultMatcher<T, TResult>(_item);
+        }
 
-        public void Exec() => _actionSelector.InvokeMatchedOrDefaultAction(_item);
+        public void Exec()
+        {
+            _actionSelector.InvokeMatchedOrDefaultAction(_item);
+        }
     }
 }

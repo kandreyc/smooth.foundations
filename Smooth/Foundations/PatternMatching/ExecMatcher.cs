@@ -5,8 +5,8 @@ using Smooth.Delegates;
 namespace Smooth.Foundations.PatternMatching
 {
     /// <summary>
-    /// An instance of this class will start a fluent function chain for defining and evaluating a pattern match against
-    /// a value of T. It either ends in Exec(), or if To{TResult}() is used, switches to a ResultMatcher{T}.
+    ///     An instance of this class will start a fluent function chain for defining and evaluating a pattern match against
+    ///     a value of T. It either ends in Exec(), or if To{TResult}() is used, switches to a ResultMatcher{T}.
     /// </summary>
     public sealed class ExecMatcher<T1>
     {
@@ -20,22 +20,40 @@ namespace Smooth.Foundations.PatternMatching
                 x => { throw new NoMatchException($"No match action exists for value of {_item}"); });
         }
 
-        public ResultMatcher<T1, TResult> To<TResult>() => new ResultMatcher<T1, TResult>(_item);
+        public ResultMatcher<T1, TResult> To<TResult>()
+        {
+            return new ResultMatcher<T1, TResult>(_item);
+        }
 
-        public WithForActionHandler<ExecMatcher<T1>, T1> With(T1 value) =>
-            new WithForActionHandler<ExecMatcher<T1>, T1>(value, RecordAction, this);
+        public WithForActionHandler<ExecMatcher<T1>, T1> With(T1 value)
+        {
+            return new WithForActionHandler<ExecMatcher<T1>, T1>(value, RecordAction, this);
+        }
 
-        public WhereForActionHandler<ExecMatcher<T1>, T1> Where(DelegateFunc<T1, bool> expression) =>
-            new WhereForActionHandler<ExecMatcher<T1>, T1>(expression, RecordAction, this);
+        public WhereForActionHandler<ExecMatcher<T1>, T1> Where(DelegateFunc<T1, bool> expression)
+        {
+            return new WhereForActionHandler<ExecMatcher<T1>, T1>(expression, RecordAction, this);
+        }
 
-        public ExecMatcherAfterElse<T1> Else(Action<T1> action) => new ExecMatcherAfterElse<T1>(_actionSelector, action, _item);
+        public ExecMatcherAfterElse<T1> Else(Action<T1> action)
+        {
+            return new ExecMatcherAfterElse<T1>(_actionSelector, action, _item);
+        }
 
-        public ExecMatcherAfterElse<T1> IgnoreElse() => new ExecMatcherAfterElse<T1>(_actionSelector, x => { }, _item);
+        public ExecMatcherAfterElse<T1> IgnoreElse()
+        {
+            return new ExecMatcherAfterElse<T1>(_actionSelector, x => { }, _item);
+        }
 
-        public void Exec() => _actionSelector.InvokeMatchedActionUsingDefaultIfRequired(_item);
+        public void Exec()
+        {
+            _actionSelector.InvokeMatchedActionUsingDefaultIfRequired(_item);
+        }
 
-        private void RecordAction(DelegateFunc<T1, bool> test, Action<T1> action) => _actionSelector.AddPredicateAndAction(test, action);
-
+        private void RecordAction(DelegateFunc<T1, bool> test, Action<T1> action)
+        {
+            _actionSelector.AddPredicateAndAction(test, action);
+        }
     }
 
     public sealed class ExecMatcher<T1, T2>
@@ -52,24 +70,41 @@ namespace Smooth.Foundations.PatternMatching
             });
         }
 
-        public ResultMatcher<T1, T2, TResult> To<TResult>() => new ResultMatcher<T1, T2, TResult>(_item);
+        public ResultMatcher<T1, T2, TResult> To<TResult>()
+        {
+            return new ResultMatcher<T1, T2, TResult>(_item);
+        }
 
-        public WithForActionHandler<ExecMatcher<T1, T2>, T1, T2> With(T1 value1, T2 value2) =>
-            new WithForActionHandler<ExecMatcher<T1, T2>, T1, T2>(Tuple.Create(value1, value2), RecordAction, this);
+        public WithForActionHandler<ExecMatcher<T1, T2>, T1, T2> With(T1 value1, T2 value2)
+        {
+            return new WithForActionHandler<ExecMatcher<T1, T2>, T1, T2>(Tuple.Create(value1, value2), RecordAction,
+                this);
+        }
 
-        public WhereForActionHandler<ExecMatcher<T1, T2>, T1, T2> Where(DelegateFunc<T1, T2, bool> expression) =>
-            new WhereForActionHandler<ExecMatcher<T1, T2>, T1, T2>(expression, RecordAction, this);
+        public WhereForActionHandler<ExecMatcher<T1, T2>, T1, T2> Where(DelegateFunc<T1, T2, bool> expression)
+        {
+            return new WhereForActionHandler<ExecMatcher<T1, T2>, T1, T2>(expression, RecordAction, this);
+        }
 
-        private void RecordAction(DelegateFunc<T1, T2, bool> test, Action<T1, T2> action) =>
+        private void RecordAction(DelegateFunc<T1, T2, bool> test, Action<T1, T2> action)
+        {
             _actionSelector.AddPredicateAndAction(test, action);
+        }
 
-        public ExecMatcherAfterElse<T1, T2> Else(Action<T1, T2> action) =>
-            new ExecMatcherAfterElse<T1, T2>(_actionSelector, action, _item);
+        public ExecMatcherAfterElse<T1, T2> Else(Action<T1, T2> action)
+        {
+            return new ExecMatcherAfterElse<T1, T2>(_actionSelector, action, _item);
+        }
 
-        public ExecMatcherAfterElse<T1, T2> IgnoreElse() =>
-            new ExecMatcherAfterElse<T1, T2>(_actionSelector, (x, y) => { }, _item);
+        public ExecMatcherAfterElse<T1, T2> IgnoreElse()
+        {
+            return new ExecMatcherAfterElse<T1, T2>(_actionSelector, (x, y) => { }, _item);
+        }
 
-        public void Exec() => _actionSelector.InvokeMatchedActionUsingDefaultIfRequired(_item.Item1, _item.Item2);
+        public void Exec()
+        {
+            _actionSelector.InvokeMatchedActionUsingDefaultIfRequired(_item.Item1, _item.Item2);
+        }
     }
 
     public sealed class ExecMatcher<T1, T2, T3>
@@ -87,27 +122,43 @@ namespace Smooth.Foundations.PatternMatching
             });
         }
 
-        public ResultMatcher<T1, T2, T3, TResult> To<TResult>() => new ResultMatcher<T1, T2, T3, TResult>(_item);
+        public ResultMatcher<T1, T2, T3, TResult> To<TResult>()
+        {
+            return new ResultMatcher<T1, T2, T3, TResult>(_item);
+        }
 
-        public WithForActionHandler<ExecMatcher<T1, T2, T3>, T1, T2, T3> With(T1 value1, T2 value2, T3 value3) =>
-            new WithForActionHandler<ExecMatcher<T1, T2, T3>, T1, T2, T3>(Tuple.Create(value1, value2, value3),
-                                                                          RecordAction,
-                                                                          this);
+        public WithForActionHandler<ExecMatcher<T1, T2, T3>, T1, T2, T3> With(T1 value1, T2 value2, T3 value3)
+        {
+            return new WithForActionHandler<ExecMatcher<T1, T2, T3>, T1, T2, T3>(Tuple.Create(value1, value2, value3),
+                RecordAction,
+                this);
+        }
 
-        public WhereForActionHandler<ExecMatcher<T1, T2, T3>, T1, T2, T3> Where(DelegateFunc<T1, T2, T3, bool> expression) =>
-            new WhereForActionHandler<ExecMatcher<T1, T2, T3>, T1, T2, T3>(expression, RecordAction, this);
+        public WhereForActionHandler<ExecMatcher<T1, T2, T3>, T1, T2, T3> Where(
+            DelegateFunc<T1, T2, T3, bool> expression)
+        {
+            return new WhereForActionHandler<ExecMatcher<T1, T2, T3>, T1, T2, T3>(expression, RecordAction, this);
+        }
 
-        private void RecordAction(DelegateFunc<T1, T2, T3, bool> test, Action<T1, T2, T3> action) =>
+        private void RecordAction(DelegateFunc<T1, T2, T3, bool> test, Action<T1, T2, T3> action)
+        {
             _actionSelector.AddPredicateAndAction(test, action);
+        }
 
-        public ExecMatcherAfterElse<T1, T2, T3> Else(Action<T1, T2, T3> action) =>
-            new ExecMatcherAfterElse<T1, T2, T3>(_actionSelector, action, _item);
+        public ExecMatcherAfterElse<T1, T2, T3> Else(Action<T1, T2, T3> action)
+        {
+            return new ExecMatcherAfterElse<T1, T2, T3>(_actionSelector, action, _item);
+        }
 
-        public ExecMatcherAfterElse<T1, T2, T3> IgnoreElse() =>
-            new ExecMatcherAfterElse<T1, T2, T3>(_actionSelector, (x, y, z) => { }, _item);
+        public ExecMatcherAfterElse<T1, T2, T3> IgnoreElse()
+        {
+            return new ExecMatcherAfterElse<T1, T2, T3>(_actionSelector, (x, y, z) => { }, _item);
+        }
 
-        public void Exec() =>
+        public void Exec()
+        {
             _actionSelector.InvokeMatchedActionUsingDefaultIfRequired(_item.Item1, _item.Item2, _item.Item3);
+        }
     }
 
     public sealed class ExecMatcher<T1, T2, T3, T4>
@@ -126,40 +177,52 @@ namespace Smooth.Foundations.PatternMatching
                 });
         }
 
-        public ResultMatcher<T1, T2, T3, T4, TResult> To<TResult>() => new ResultMatcher<T1, T2, T3, T4, TResult>(_item);
+        public ResultMatcher<T1, T2, T3, T4, TResult> To<TResult>()
+        {
+            return new ResultMatcher<T1, T2, T3, T4, TResult>(_item);
+        }
 
         public WithForActionHandler<ExecMatcher<T1, T2, T3, T4>, T1, T2, T3, T4> With(T1 value1,
-                                                                                      T2 value2,
-                                                                                      T3 value3,
-                                                                                      T4 value4)
+            T2 value2,
+            T3 value3,
+            T4 value4)
         {
             return new WithForActionHandler<ExecMatcher<T1, T2, T3, T4>, T1, T2, T3, T4>(Tuple.Create(value1,
-                                                                                                      value2,
-                                                                                                      value3,
-                                                                                                      value4),
-                                                                                         RecordAction,
-                                                                                         this);
+                    value2,
+                    value3,
+                    value4),
+                RecordAction,
+                this);
         }
 
         public WhereForActionHandler<ExecMatcher<T1, T2, T3, T4>, T1, T2, T3, T4>
-            Where(DelegateFunc<T1, T2, T3, T4, bool> expression) =>
-                new WhereForActionHandler<ExecMatcher<T1, T2, T3, T4>, T1, T2, T3, T4>(expression, RecordAction, this);
+            Where(DelegateFunc<T1, T2, T3, T4, bool> expression)
+        {
+            return new WhereForActionHandler<ExecMatcher<T1, T2, T3, T4>, T1, T2, T3, T4>(expression, RecordAction,
+                this);
+        }
 
-        private void RecordAction(DelegateFunc<T1, T2, T3, T4, bool> test, Action<T1, T2, T3, T4> action) =>
+        private void RecordAction(DelegateFunc<T1, T2, T3, T4, bool> test, Action<T1, T2, T3, T4> action)
+        {
             _actionSelector.AddPredicateAndAction(test, action);
+        }
 
-        public ExecMatcherAfterElse<T1, T2, T3, T4> Else(Action<T1, T2, T3, T4> action) =>
-            new ExecMatcherAfterElse<T1, T2, T3, T4>(_actionSelector, action, _item);
+        public ExecMatcherAfterElse<T1, T2, T3, T4> Else(Action<T1, T2, T3, T4> action)
+        {
+            return new ExecMatcherAfterElse<T1, T2, T3, T4>(_actionSelector, action, _item);
+        }
 
-        public ExecMatcherAfterElse<T1, T2, T3, T4> IgnoreElse() =>
-            new ExecMatcherAfterElse<T1, T2, T3, T4>(_actionSelector, (w, x, y, z) => { }, _item);
+        public ExecMatcherAfterElse<T1, T2, T3, T4> IgnoreElse()
+        {
+            return new ExecMatcherAfterElse<T1, T2, T3, T4>(_actionSelector, (w, x, y, z) => { }, _item);
+        }
 
-        public void Exec() =>
+        public void Exec()
+        {
             _actionSelector.InvokeMatchedActionUsingDefaultIfRequired(_item.Item1,
-                                                                      _item.Item2,
-                                                                      _item.Item3,
-                                                                      _item.Item4);
+                _item.Item2,
+                _item.Item3,
+                _item.Item4);
+        }
     }
-
 }
-

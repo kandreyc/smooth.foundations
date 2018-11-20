@@ -6,8 +6,8 @@ namespace Smooth.Foundations.PatternMatching.ValueOrError.Function
     public class WhereForValueOrError<TMatcher, T1, TResult>
     {
         private readonly DelegateFunc<T1, bool> _expression;
-        private readonly Action<DelegateFunc<T1, bool>, DelegateFunc<T1, TResult>> _recorder;
         private readonly TMatcher _matcher;
+        private readonly Action<DelegateFunc<T1, bool>, DelegateFunc<T1, TResult>> _recorder;
 
         internal WhereForValueOrError(DelegateFunc<T1, bool> expression,
             Action<DelegateFunc<T1, bool>, DelegateFunc<T1, TResult>> recorder,

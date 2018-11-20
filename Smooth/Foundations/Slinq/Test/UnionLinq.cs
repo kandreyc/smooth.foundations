@@ -1,23 +1,19 @@
-using UnityEngine;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Smooth.Algebraics;
-using Smooth.Delegates;
-using Smooth.Slinq;
+using UnityEngine;
 
 #if !UNITY_3_5
-namespace Smooth.Slinq.Test {
+namespace Smooth.Slinq.Test
+{
 #endif
-	
-	public class UnionLinq : MonoBehaviour {
-		private void Update() {
-			for (int i = 0; i < SlinqTest.loops; ++i) {
-				SlinqTest.tuples1.Union(SlinqTest.tuples2, SlinqTest.eq_1).Count();
-			}
-		}
-	}
+
+    public class UnionLinq : MonoBehaviour
+    {
+        private void Update()
+        {
+            for (var i = 0; i < SlinqTest.loops; ++i)
+                SlinqTest.tuples1.Union(SlinqTest.tuples2, SlinqTest.eq_1).Count();
+        }
+    }
 
 #if !UNITY_3_5
 }

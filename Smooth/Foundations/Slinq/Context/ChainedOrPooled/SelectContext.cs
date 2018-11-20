@@ -1,165 +1,170 @@
-using System;
 using Smooth.Algebraics;
 using Smooth.Delegates;
 
-namespace Smooth.Slinq.Context {
-	
-	#region No parameter
-	
-	public struct SelectContext<U, T, C> {
+namespace Smooth.Slinq.Context
+{
+    #region No parameter
 
-		#region Slinqs
+    public struct SelectContext<U, T, C>
+    {
+        #region Slinqs
 
-		public static Slinq<U, SelectContext<U, T, C>> Select(Slinq<T, C> slinq, DelegateFunc<T, U> selector) {
-			return new Slinq<U, SelectContext<U, T, C>>(
-				skip,
-				remove,
-				dispose,
-				new SelectContext<U, T, C>(slinq, selector));
-		}
+        public static Slinq<U, SelectContext<U, T, C>> Select(Slinq<T, C> slinq, DelegateFunc<T, U> selector)
+        {
+            return new Slinq<U, SelectContext<U, T, C>>(
+                skip,
+                remove,
+                dispose,
+                new SelectContext<U, T, C>(slinq, selector));
+        }
 
-		#endregion
+        #endregion
 
-		#region Context
-		
-		private bool needsMove;
-		private Slinq<T, C> chained;
-		private readonly DelegateFunc<T, U> selector;
-		
-		#pragma warning disable 0414
-		private BacktrackDetector bd;
-		#pragma warning restore 0414
+        #region Context
 
-		private SelectContext(Slinq<T, C> chained, DelegateFunc<T, U> selector) {
-			this.needsMove = false;
-			this.chained = chained;
-			this.selector = selector;
-			
-			this.bd = BacktrackDetector.Borrow();
-		}
-		
-		#endregion
-		
-		#region Delegates
+        private bool needsMove;
+        private Slinq<T, C> chained;
+        private readonly DelegateFunc<T, U> selector;
 
-		private static readonly Mutator<U, SelectContext<U, T, C>> skip = Skip;
-		private static readonly Mutator<U, SelectContext<U, T, C>> remove = Remove;
-		private static readonly Mutator<U, SelectContext<U, T, C>> dispose = Dispose;
+#pragma warning disable 0414
+        private BacktrackDetector bd;
+#pragma warning restore 0414
 
-		private static void Skip(ref SelectContext<U, T, C> context, out Option<U> next) {
-			context.bd.DetectBacktrack();
-			
-			if (context.needsMove) {
-				context.chained.skip(ref context.chained.context, out context.chained.current);
-			} else {
-				context.needsMove = true;
-			}
+        private SelectContext(Slinq<T, C> chained, DelegateFunc<T, U> selector)
+        {
+            needsMove = false;
+            this.chained = chained;
+            this.selector = selector;
 
-			next = context.chained.current.isSome ? new Option<U>(context.selector(context.chained.current.value)): new Option<U>();
+            bd = BacktrackDetector.Borrow();
+        }
 
-			if (!next.isSome) {
-				context.bd.Release();
-			}
-		}
+        #endregion
 
-		private static void Remove(ref SelectContext<U, T, C> context, out Option<U> next) {
-			context.bd.DetectBacktrack();
-			
-			context.needsMove = false;
-			context.chained.remove(ref context.chained.context, out context.chained.current);
-			Skip(ref context, out next);
-		}
+        #region Delegates
 
-		private static void Dispose(ref SelectContext<U, T, C> context, out Option<U> next) {
-			next = new Option<U>();		
-			context.bd.Release();
-			context.chained.dispose(ref context.chained.context, out context.chained.current);
-		}
-		
-		#endregion
+        private static readonly Mutator<U, SelectContext<U, T, C>> skip = Skip;
+        private static readonly Mutator<U, SelectContext<U, T, C>> remove = Remove;
+        private static readonly Mutator<U, SelectContext<U, T, C>> dispose = Dispose;
 
-	}
-	
-	#endregion
-	
-	#region With parameter
+        private static void Skip(ref SelectContext<U, T, C> context, out Option<U> next)
+        {
+            context.bd.DetectBacktrack();
 
-	public struct SelectContext<U, T, C, P> {
+            if (context.needsMove)
+                context.chained.skip(ref context.chained.context, out context.chained.current);
+            else
+                context.needsMove = true;
 
-		#region Slinqs
+            next = context.chained.current.isSome
+                ? new Option<U>(context.selector(context.chained.current.value))
+                : new Option<U>();
 
-		public static Slinq<U, SelectContext<U, T, C, P>> Select(Slinq<T, C> slinq, DelegateFunc<T, P, U> selector, P parameter) {
-			return new Slinq<U, SelectContext<U, T, C, P>>(
-				skip,
-				remove,
-				dispose,
-				new SelectContext<U, T, C, P>(slinq, selector, parameter));
-		}
+            if (!next.isSome) context.bd.Release();
+        }
 
-		#endregion
+        private static void Remove(ref SelectContext<U, T, C> context, out Option<U> next)
+        {
+            context.bd.DetectBacktrack();
 
-		#region Context
-		
-		private bool needsMove;
-		private Slinq<T, C> chained;
-		private readonly DelegateFunc<T, P, U> selector;
-		private readonly P parameter;
-		
-		#pragma warning disable 0414
-		private BacktrackDetector bd;
-		#pragma warning restore 0414
+            context.needsMove = false;
+            context.chained.remove(ref context.chained.context, out context.chained.current);
+            Skip(ref context, out next);
+        }
 
-		private SelectContext(Slinq<T, C> chained, DelegateFunc<T, P, U> selector, P parameter) {
-			this.needsMove = false;
-			this.chained = chained;
-			this.selector = selector;
-			this.parameter = parameter;
-			
-			this.bd = BacktrackDetector.Borrow();
-		}
-		
-		#endregion
-		
-		#region Delegates
-		
-		private static readonly Mutator<U, SelectContext<U, T, C, P>> skip = Skip;
-		private static readonly Mutator<U, SelectContext<U, T, C, P>> remove = Remove;
-		private static readonly Mutator<U, SelectContext<U, T, C, P>> dispose = Dispose;
+        private static void Dispose(ref SelectContext<U, T, C> context, out Option<U> next)
+        {
+            next = new Option<U>();
+            context.bd.Release();
+            context.chained.dispose(ref context.chained.context, out context.chained.current);
+        }
 
-		private static void Skip(ref SelectContext<U, T, C, P> context, out Option<U> next) {
-			context.bd.DetectBacktrack();
-			
-			if (context.needsMove) {
-				context.chained.skip(ref context.chained.context, out context.chained.current);
-			} else {
-				context.needsMove = true;
-			}
+        #endregion
+    }
 
-			next = context.chained.current.isSome ? new Option<U>(context.selector(context.chained.current.value, context.parameter)): new Option<U>();
+    #endregion
 
-			if (!next.isSome) {
-				context.bd.Release();
-			}
-		}
+    #region With parameter
 
-		private static void Remove(ref SelectContext<U, T, C, P> context, out Option<U> next) {
-			context.bd.DetectBacktrack();
-			
-			context.needsMove = false;
-			context.chained.remove(ref context.chained.context, out context.chained.current);
-			Skip(ref context, out next);
-		}
-		
-		private static void Dispose(ref SelectContext<U, T, C, P> context, out Option<U> next) {
-			next = new Option<U>();
-			context.bd.Release();
-			context.chained.dispose(ref context.chained.context, out context.chained.current);
-		}
+    public struct SelectContext<U, T, C, P>
+    {
+        #region Slinqs
 
-		#endregion
-		
-	}
+        public static Slinq<U, SelectContext<U, T, C, P>> Select(Slinq<T, C> slinq, DelegateFunc<T, P, U> selector,
+            P parameter)
+        {
+            return new Slinq<U, SelectContext<U, T, C, P>>(
+                skip,
+                remove,
+                dispose,
+                new SelectContext<U, T, C, P>(slinq, selector, parameter));
+        }
 
-	#endregion
+        #endregion
 
+        #region Context
+
+        private bool needsMove;
+        private Slinq<T, C> chained;
+        private readonly DelegateFunc<T, P, U> selector;
+        private readonly P parameter;
+
+#pragma warning disable 0414
+        private BacktrackDetector bd;
+#pragma warning restore 0414
+
+        private SelectContext(Slinq<T, C> chained, DelegateFunc<T, P, U> selector, P parameter)
+        {
+            needsMove = false;
+            this.chained = chained;
+            this.selector = selector;
+            this.parameter = parameter;
+
+            bd = BacktrackDetector.Borrow();
+        }
+
+        #endregion
+
+        #region Delegates
+
+        private static readonly Mutator<U, SelectContext<U, T, C, P>> skip = Skip;
+        private static readonly Mutator<U, SelectContext<U, T, C, P>> remove = Remove;
+        private static readonly Mutator<U, SelectContext<U, T, C, P>> dispose = Dispose;
+
+        private static void Skip(ref SelectContext<U, T, C, P> context, out Option<U> next)
+        {
+            context.bd.DetectBacktrack();
+
+            if (context.needsMove)
+                context.chained.skip(ref context.chained.context, out context.chained.current);
+            else
+                context.needsMove = true;
+
+            next = context.chained.current.isSome
+                ? new Option<U>(context.selector(context.chained.current.value, context.parameter))
+                : new Option<U>();
+
+            if (!next.isSome) context.bd.Release();
+        }
+
+        private static void Remove(ref SelectContext<U, T, C, P> context, out Option<U> next)
+        {
+            context.bd.DetectBacktrack();
+
+            context.needsMove = false;
+            context.chained.remove(ref context.chained.context, out context.chained.current);
+            Skip(ref context, out next);
+        }
+
+        private static void Dispose(ref SelectContext<U, T, C, P> context, out Option<U> next)
+        {
+            next = new Option<U>();
+            context.bd.Release();
+            context.chained.dispose(ref context.chained.context, out context.chained.current);
+        }
+
+        #endregion
+    }
+
+    #endregion
 }

@@ -1,18 +1,17 @@
-﻿using System;
-using Smooth.Algebraics;
+﻿using Smooth.Algebraics;
 using Smooth.Delegates;
 
 namespace Smooth.Foundations.PatternMatching.Options
 {
     public sealed class ResultOptionMatcherAfterElse<T, TResult>
     {
-        private readonly Option<T> _item;
-        private readonly Either<TResult, DelegateFunc<Option<T>, TResult>> _result; 
         private readonly FuncSelectorForOption<T, TResult> _funcSelector;
+        private readonly Option<T> _item;
+        private readonly Either<TResult, DelegateFunc<Option<T>, TResult>> _result;
 
         internal ResultOptionMatcherAfterElse(FuncSelectorForOption<T, TResult> funcSelector,
-                                              DelegateFunc<Option<T>, TResult> elseResult, 
-                                              Option<T> item)
+            DelegateFunc<Option<T>, TResult> elseResult,
+            Option<T> item)
         {
             _funcSelector = funcSelector;
             _result = Either<TResult, DelegateFunc<Option<T>, TResult>>.Right(elseResult);
@@ -20,8 +19,8 @@ namespace Smooth.Foundations.PatternMatching.Options
         }
 
         internal ResultOptionMatcherAfterElse(FuncSelectorForOption<T, TResult> funcSelector,
-                                              TResult elseResult,
-                                              Option<T> item)
+            TResult elseResult,
+            Option<T> item)
         {
             _funcSelector = funcSelector;
             _result = Either<TResult, DelegateFunc<Option<T>, TResult>>.Left(elseResult);

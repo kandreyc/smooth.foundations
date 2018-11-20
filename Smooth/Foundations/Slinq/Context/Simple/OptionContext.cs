@@ -1,94 +1,100 @@
 using System;
 using Smooth.Algebraics;
 
-namespace Smooth.Slinq.Context {
-	public struct OptionContext<T> {
+namespace Smooth.Slinq.Context
+{
+    public struct OptionContext<T>
+    {
+        #region Slinqs
 
-		#region Slinqs
+        public static Slinq<T, OptionContext<T>> Slinq(Option<T> option)
+        {
+            return new Slinq<T, OptionContext<T>>(
+                optionSkip,
+                remove,
+                dispose,
+                new OptionContext<T>(option));
+        }
 
-		public static Slinq<T, OptionContext<T>> Slinq(Option<T> option) {
-			return new Slinq<T, OptionContext<T>>(
-				optionSkip,
-				remove,
-				dispose,
-				new OptionContext<T>(option));
-		}
-		
-		public static Slinq<T, OptionContext<T>> Repeat(T value) {
-			return new Slinq<T, OptionContext<T>>(
-				repeatSkip,
-				remove,
-				dispose,
-				new OptionContext<T>(new Option<T>(value)));
-		}
-		
-		#endregion
-		
-		#region Context
-		
-		private Option<T> option;
+        public static Slinq<T, OptionContext<T>> Repeat(T value)
+        {
+            return new Slinq<T, OptionContext<T>>(
+                repeatSkip,
+                remove,
+                dispose,
+                new OptionContext<T>(new Option<T>(value)));
+        }
 
-		#pragma warning disable 0414
-		private BacktrackDetector bd;
-		#pragma warning restore 0414
-		
-		private OptionContext(Option<T> option) {
-			this.option = option;
-			
-			this.bd = BacktrackDetector.Borrow();
-		}
+        #endregion
 
-		#endregion
+        #region Context
 
-		#region Delegates
+        private Option<T> option;
 
-		#region Remove / Dispose
+#pragma warning disable 0414
+        private BacktrackDetector bd;
+#pragma warning restore 0414
 
-		private static readonly Mutator<T, OptionContext<T>> remove = Remove;
-		private static readonly Mutator<T, OptionContext<T>> dispose = Dispose;
-		
-		private static void Remove(ref OptionContext<T> context, out Option<T> next) {
-			throw new NotSupportedException();
-		}
+        private OptionContext(Option<T> option)
+        {
+            this.option = option;
 
-		private static void Dispose(ref OptionContext<T> context, out Option<T> next) {
-			next = new Option<T>();
-			context.bd.Release();
-		}
+            bd = BacktrackDetector.Borrow();
+        }
 
-		#endregion
+        #endregion
 
-		#region Option
+        #region Delegates
 
-		private static readonly Mutator<T, OptionContext<T>> optionSkip = OptionSkip;
+        #region Remove / Dispose
 
-		private static void OptionSkip(ref OptionContext<T> context, out Option<T> next) {
-			context.bd.DetectBacktrack();
+        private static readonly Mutator<T, OptionContext<T>> remove = Remove;
+        private static readonly Mutator<T, OptionContext<T>> dispose = Dispose;
 
-			next = context.option;
+        private static void Remove(ref OptionContext<T> context, out Option<T> next)
+        {
+            throw new NotSupportedException();
+        }
 
-			if (context.option.isSome) {
-				context.option = new Option<T>();
-			} else {
-				context.bd.Release();
-			}
-		}
+        private static void Dispose(ref OptionContext<T> context, out Option<T> next)
+        {
+            next = new Option<T>();
+            context.bd.Release();
+        }
 
-		#endregion
+        #endregion
 
-		#region Repeat
-		
-		private static readonly Mutator<T, OptionContext<T>> repeatSkip = RepeatSkip;
+        #region Option
 
-		private static void RepeatSkip(ref OptionContext<T> context, out Option<T> next) {
-			context.bd.DetectBacktrack();
-			
-			next = context.option;
-		}
+        private static readonly Mutator<T, OptionContext<T>> optionSkip = OptionSkip;
 
-		#endregion
+        private static void OptionSkip(ref OptionContext<T> context, out Option<T> next)
+        {
+            context.bd.DetectBacktrack();
 
-		#endregion
+            next = context.option;
 
-	}
+            if (context.option.isSome)
+                context.option = new Option<T>();
+            else
+                context.bd.Release();
+        }
+
+        #endregion
+
+        #region Repeat
+
+        private static readonly Mutator<T, OptionContext<T>> repeatSkip = RepeatSkip;
+
+        private static void RepeatSkip(ref OptionContext<T> context, out Option<T> next)
+        {
+            context.bd.DetectBacktrack();
+
+            next = context.option;
+        }
+
+        #endregion
+
+        #endregion
+    }
 }

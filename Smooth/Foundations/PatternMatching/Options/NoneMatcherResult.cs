@@ -1,5 +1,4 @@
 ﻿using System;
-using Smooth.Algebraics;
 using Smooth.Delegates;
 
 namespace Smooth.Foundations.PatternMatching.Options
@@ -10,17 +9,23 @@ namespace Smooth.Foundations.PatternMatching.Options
         private readonly ResultOptionMatcher<T, TResult> _matcher;
 
         internal NoneMatcherResult(ResultOptionMatcher<T, TResult> matcher,
-                           FuncSelectorForOption<T, TResult> addPredicateAndFunc)
+            FuncSelectorForOption<T, TResult> addPredicateAndFunc)
         {
             _addPredicateAndFunc = addPredicateAndFunc;
             _matcher = matcher;
         }
 
         [Obsolete("Please use return")]
-        public ResultOptionMatcher<T, TResult> Do(TResult result) => Return(result);
+        public ResultOptionMatcher<T, TResult> Do(TResult result)
+        {
+            return Return(result);
+        }
 
         [Obsolete("Please use return")]
-        public ResultOptionMatcher<T, TResult> Do(DelegateFunc<TResult> func) => Return(func);
+        public ResultOptionMatcher<T, TResult> Do(DelegateFunc<TResult> func)
+        {
+            return Return(func);
+        }
 
         public ResultOptionMatcher<T, TResult> Return(TResult result)
         {

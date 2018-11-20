@@ -15,25 +15,38 @@ namespace Smooth.Foundations.PatternMatching.ValueOrError.Function
                 x => { throw new NoMatchException($"No match action exists for value of {item}"); }, item.IsError);
         }
 
-        public WithForValueOrErrorHandler<ValueOrErrorResultMatcher<T, TResult>, T, TResult> With(T value) =>
-            new WithForValueOrErrorHandler<ValueOrErrorResultMatcher<T, TResult>, T, TResult>(value, RecordAction,
+        public WithForValueOrErrorHandler<ValueOrErrorResultMatcher<T, TResult>, T, TResult> With(T value)
+        {
+            return new WithForValueOrErrorHandler<ValueOrErrorResultMatcher<T, TResult>, T, TResult>(value,
+                RecordAction,
                 this);
+        }
 
         public WhereForValueOrError<ValueOrErrorResultMatcher<T, TResult>, T, TResult> Where(
-            DelegateFunc<T, bool> expression) =>
-                new WhereForValueOrError<ValueOrErrorResultMatcher<T, TResult>, T, TResult>(expression, RecordAction,
-                    this);
+            DelegateFunc<T, bool> expression)
+        {
+            return new WhereForValueOrError<ValueOrErrorResultMatcher<T, TResult>, T, TResult>(expression, RecordAction,
+                this);
+        }
 
-        public ValueOrErrorResultMatcherWithElse<T, TResult> Else(DelegateFunc<T, TResult> action) =>
-            new ValueOrErrorResultMatcherWithElse<T, TResult>(_functionSelector, action, _item);
+        public ValueOrErrorResultMatcherWithElse<T, TResult> Else(DelegateFunc<T, TResult> action)
+        {
+            return new ValueOrErrorResultMatcherWithElse<T, TResult>(_functionSelector, action, _item);
+        }
 
-        public ValueOrErrorResultMatcherWithElse<T, TResult> Else(TResult result) =>
-            new ValueOrErrorResultMatcherWithElse<T, TResult>(_functionSelector, x => result, _item);
+        public ValueOrErrorResultMatcherWithElse<T, TResult> Else(TResult result)
+        {
+            return new ValueOrErrorResultMatcherWithElse<T, TResult>(_functionSelector, x => result, _item);
+        }
 
-        public ValueOrError<TResult> Result() =>
-            _functionSelector.DetermineResultUsingDefaultIfRequired(_item);
+        public ValueOrError<TResult> Result()
+        {
+            return _functionSelector.DetermineResultUsingDefaultIfRequired(_item);
+        }
 
-        private void RecordAction(DelegateFunc<T, bool> test, DelegateFunc<T, TResult> action) =>
+        private void RecordAction(DelegateFunc<T, bool> test, DelegateFunc<T, TResult> action)
+        {
             _functionSelector.AddPredicateAndAction(test, action);
+        }
     }
 }

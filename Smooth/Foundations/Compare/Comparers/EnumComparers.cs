@@ -1,70 +1,71 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using Smooth.Collections;
 
-namespace Smooth.Compare.Comparers {
+namespace Smooth.Compare.Comparers
+{
 	/// <summary>
-	/// Fast, allocation free equality comparer for blittable structs with an underlying size of 32 bits or less.
+	///     Fast, allocation free equality comparer for blittable structs with an underlying size of 32 bits or less.
 	/// </summary>
-	public class Blittable32EqualityComparer<T> : Smooth.Collections.EqualityComparer<T> {
-		public override bool Equals(T t1, T t2) {
-			Converter converter;
-			converter.value = 0;
-			converter.t = t1;
-			var v1 = converter.value;
-			converter.t = t2;
-			return v1 == converter.value;
-		}
-		
-		public override int GetHashCode(T t) {
-			Converter converter;
-			converter.value = 0;
-			converter.t = t;
-			return converter.value;
-		}
-		
-		[StructLayout(LayoutKind.Explicit)]
-		internal struct Converter
-		{
-			[FieldOffset(0)]
-			public T t;
-			
-			[FieldOffset(0)]
-			public Int32 value;
-		}
-	}
+	public class Blittable32EqualityComparer<T> : EqualityComparer<T>
+    {
+        public override bool Equals(T t1, T t2)
+        {
+            Converter converter;
+            converter.value = 0;
+            converter.t = t1;
+            var v1 = converter.value;
+            converter.t = t2;
+            return v1 == converter.value;
+        }
+
+        public override int GetHashCode(T t)
+        {
+            Converter converter;
+            converter.value = 0;
+            converter.t = t;
+            return converter.value;
+        }
+
+        [StructLayout(LayoutKind.Explicit)]
+        internal struct Converter
+        {
+            [FieldOffset(0)] public T t;
+
+            [FieldOffset(0)] public int value;
+        }
+    }
 
 	/// <summary>
-	/// Fast, allocation free equality comparer for blittable structs with an underlying size of 64 bits or less.
+	///     Fast, allocation free equality comparer for blittable structs with an underlying size of 64 bits or less.
 	/// </summary>
-	public class Blittable64EqualityComparer<T> : Smooth.Collections.EqualityComparer<T> {
-		public override bool Equals(T t1, T t2) {
-			Converter converter;
-			converter.value = 0;
-			converter.t = t1;
-			var v1 = converter.value;
-			converter.t = t2;
-			return v1 == converter.value;
-		}
-		
-		public override int GetHashCode(T t) {
-			Converter converter;
-			converter.value = 0;
-			converter.t = t;
-			return converter.value.GetHashCode();
-		}
-		
-		[StructLayout(LayoutKind.Explicit)]
-		internal struct Converter
-		{
-			[FieldOffset(0)]
-			public T t;
-			
-			[FieldOffset(0)]
-			public Int64 value;
-		}
-	}
+	public class Blittable64EqualityComparer<T> : EqualityComparer<T>
+    {
+        public override bool Equals(T t1, T t2)
+        {
+            Converter converter;
+            converter.value = 0;
+            converter.t = t1;
+            var v1 = converter.value;
+            converter.t = t2;
+            return v1 == converter.value;
+        }
+
+        public override int GetHashCode(T t)
+        {
+            Converter converter;
+            converter.value = 0;
+            converter.t = t;
+            return converter.value.GetHashCode();
+        }
+
+        [StructLayout(LayoutKind.Explicit)]
+        internal struct Converter
+        {
+            [FieldOffset(0)] public T t;
+
+            [FieldOffset(0)] public long value;
+        }
+    }
 
 //	/// <summary>
 //	/// Fast, allocation free IEqualityComparer<T> for Enums that uses System.Reflection.Emit to create JIT complied equality and hashCode functions.

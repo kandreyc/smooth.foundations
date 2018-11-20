@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Smooth.Algebraics;
 using Smooth.Delegates;
@@ -10,17 +9,19 @@ namespace Smooth.Foundations.PatternMatching.Options
     internal sealed class FuncSelectorForOption<T, TResult>
     {
         private readonly DelegateFunc<Option<T>, TResult> _defaultFunc;
-        private readonly List<Tuple<DelegateFunc<Option<T>, bool>, 
+
+        private readonly List<Tuple<DelegateFunc<Option<T>, bool>,
             Union<DelegateFunc<T, TResult>, DelegateFunc<Option<T>, TResult>, TResult>>> _predicatesAndResults =
-                new List<Tuple<DelegateFunc<Option<T>, bool>, 
-                    Union<DelegateFunc<T, TResult>, DelegateFunc<Option<T>, TResult>, TResult>>>();
+            new List<Tuple<DelegateFunc<Option<T>, bool>,
+                Union<DelegateFunc<T, TResult>, DelegateFunc<Option<T>, TResult>, TResult>>>();
 
         public FuncSelectorForOption(DelegateFunc<Option<T>, TResult> defaultFunc)
         {
             _defaultFunc = defaultFunc;
         }
 
-        public void AddPredicateAndOptionFunc(DelegateFunc<Option<T>, bool> predicate, DelegateFunc<Option<T>, TResult> func)
+        public void AddPredicateAndOptionFunc(DelegateFunc<Option<T>, bool> predicate,
+            DelegateFunc<Option<T>, TResult> func)
         {
             _predicatesAndResults.Add(Tuple.Create(predicate,
                 Union<DelegateFunc<T, TResult>, DelegateFunc<Option<T>, TResult>, TResult>.CreateSecond(func)));
@@ -34,7 +35,7 @@ namespace Smooth.Foundations.PatternMatching.Options
 
         public void AddPredicateAndResult(DelegateFunc<Option<T>, bool> predicate, TResult result)
         {
-            _predicatesAndResults.Add(Tuple.Create(predicate, 
+            _predicatesAndResults.Add(Tuple.Create(predicate,
                 Union<DelegateFunc<T, TResult>, DelegateFunc<Option<T>, TResult>, TResult>.CreateThird(result)));
         }
 
@@ -58,13 +59,12 @@ namespace Smooth.Foundations.PatternMatching.Options
             return _predicatesAndResults.Slinq()
                 .FirstOrNone((pair, v) => pair.Item1(v), item)
                 .Select(pair => pair.Item2)
-                .Select((resultProvider, pItem) => 
-                    resultProvider.Case == Variant.First 
-                    ? resultProvider.Case1(pItem.value)
-                    : resultProvider.Case == Variant.Second
-                    ? resultProvider.Case2(pItem)
-                    : resultProvider.Case3, item);
+                .Select((resultProvider, pItem) =>
+                    resultProvider.Case == Variant.First
+                        ? resultProvider.Case1(pItem.value)
+                        : resultProvider.Case == Variant.Second
+                            ? resultProvider.Case2(pItem)
+                            : resultProvider.Case3, item);
         }
-
     }
 }
