@@ -1,3 +1,4 @@
+using System;
 using Smooth.Algebraics;
 using Smooth.Delegates;
 

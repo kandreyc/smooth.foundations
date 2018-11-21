@@ -1,4 +1,5 @@
-﻿using Smooth.Algebraics;
+﻿using System;
+using Smooth.Algebraics;
 using Smooth.Foundations.PatternMatching.Options;
 
 namespace Smooth.Foundations.PatternMatching

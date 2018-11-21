@@ -1595,7 +1595,7 @@ namespace Smooth.Slinq
                 return new Tuple<LinkedHeadTail<T>, LinkedHeadTail<T>>(ToLinked(), new LinkedHeadTail<T>());
             }
 
-            return new Tuple<LinkedHeadTail<T>, LinkedHeadTail<T>>();
+            return new Tuple<LinkedHeadTail<T>, LinkedHeadTail<T>>(default(LinkedHeadTail<T>), default(LinkedHeadTail<T>));
         }
 
         #endregion
