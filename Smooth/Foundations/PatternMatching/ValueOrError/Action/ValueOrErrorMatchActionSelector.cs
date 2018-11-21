@@ -14,8 +14,8 @@ namespace Smooth.Foundations.PatternMatching.ValueOrError.Action
 
         private readonly DelegateAction _matchNotFoundAction;
 
-        private readonly List<Tuple<DelegateFunc<T1, bool>, DelegateAction<T1>>> _testsAndActions =
-            new List<Tuple<DelegateFunc<T1, bool>, DelegateAction<T1>>>();
+        private readonly List<ValueTuple<DelegateFunc<T1, bool>, DelegateAction<T1>>> _testsAndActions =
+            new List<ValueTuple<DelegateFunc<T1, bool>, DelegateAction<T1>>>();
 
         private Option<DelegateAction<T1>> _onValueDefaultAction = Option<DelegateAction<T1>>.None;
 
@@ -33,7 +33,7 @@ namespace Smooth.Foundations.PatternMatching.ValueOrError.Action
 
         public void AddPredicateAndAction(DelegateFunc<T1, bool> test, DelegateAction<T1> action)
         {
-            _testsAndActions.Add(new Tuple<DelegateFunc<T1, bool>, DelegateAction<T1>>(test, action));
+            _testsAndActions.Add(new ValueTuple<DelegateFunc<T1, bool>, DelegateAction<T1>>(test, action));
         }
 
         public void AddErrorAction(DelegateAction<string> action)

@@ -11,22 +11,22 @@ namespace Smooth.Foundations.PatternMatching
     /// </summary>
     public static class SpecificTypeMatcherExtensions
     {
-        public static ExecMatcher<T> Match<T>(this Tuple<T> item)
+        public static ExecMatcher<T> Match<T>(this ValueTuple<T> item)
         {
             return new ExecMatcher<T>(item.Item1);
         }
 
-        public static ExecMatcher<T1, T2> Match<T1, T2>(this Tuple<T1, T2> item)
+        public static ExecMatcher<T1, T2> Match<T1, T2>(this ValueTuple<T1, T2> item)
         {
             return new ExecMatcher<T1, T2>(item.Item1, item.Item2);
         }
 
-        public static ExecMatcher<T1, T2, T3> Match<T1, T2, T3>(this Tuple<T1, T2, T3> item)
+        public static ExecMatcher<T1, T2, T3> Match<T1, T2, T3>(this ValueTuple<T1, T2, T3> item)
         {
             return new ExecMatcher<T1, T2, T3>(item.Item1, item.Item2, item.Item3);
         }
 
-        public static ExecMatcher<T1, T2, T3, T4> Match<T1, T2, T3, T4>(this Tuple<T1, T2, T3, T4> item)
+        public static ExecMatcher<T1, T2, T3, T4> Match<T1, T2, T3, T4>(this ValueTuple<T1, T2, T3, T4> item)
         {
             return new ExecMatcher<T1, T2, T3, T4>(item.Item1, item.Item2, item.Item3, item.Item4);
         }

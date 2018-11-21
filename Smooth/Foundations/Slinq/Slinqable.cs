@@ -96,7 +96,7 @@ namespace Smooth.Slinq
 	    ///     If startIndex is outside the element range of the list, the resulting Slinq will be empty.
 	    ///     Slinqs created by this method will chain removal operations to the underlying list.
 	    /// </summary>
-	    public static Slinq<Tuple<T, int>, IListContext<T>> SlinqWithIndex<T>(this IList<T> list, int startIndex,
+	    public static Slinq<ValueTuple<T, int>, IListContext<T>> SlinqWithIndex<T>(this IList<T> list, int startIndex,
             int step)
         {
             return IListContext<T>.SlinqWithIndex(list, startIndex, step);
@@ -119,7 +119,7 @@ namespace Smooth.Slinq
 	    ///     Returns a Slinq that enumerates over the element, index pairs of the specified list in ascending order.
 	    ///     Slinqs created by this method will chain removal operations to the underlying list.
 	    /// </summary>
-	    public static Slinq<Tuple<T, int>, IListContext<T>> SlinqWithIndex<T>(this IList<T> list)
+	    public static Slinq<ValueTuple<T, int>, IListContext<T>> SlinqWithIndex<T>(this IList<T> list)
         {
             return IListContext<T>.SlinqWithIndex(list, 0, 1);
         }
@@ -141,7 +141,7 @@ namespace Smooth.Slinq
 	    ///     If startIndex is outside the element range of the list, the resulting Slinq will be empty.
 	    ///     Slinqs created by this method will chain removal operations to the underlying list.
 	    /// </summary>
-	    public static Slinq<Tuple<T, int>, IListContext<T>> SlinqWithIndex<T>(this IList<T> list, int startIndex)
+	    public static Slinq<ValueTuple<T, int>, IListContext<T>> SlinqWithIndex<T>(this IList<T> list, int startIndex)
         {
             return IListContext<T>.SlinqWithIndex(list, startIndex, 1);
         }
@@ -163,7 +163,7 @@ namespace Smooth.Slinq
 	    ///     Returns a Slinq that enumerates over the element, index pairs of the specified list in descending order.
 	    ///     Slinqs created by this method will chain removal operations to the underlying list.
 	    /// </summary>
-	    public static Slinq<Tuple<T, int>, IListContext<T>> SlinqWithIndexDescending<T>(this IList<T> list)
+	    public static Slinq<ValueTuple<T, int>, IListContext<T>> SlinqWithIndexDescending<T>(this IList<T> list)
         {
             return IListContext<T>.SlinqWithIndex(list, list.Count - 1, -1);
         }
@@ -185,7 +185,7 @@ namespace Smooth.Slinq
 	    ///     If startIndex is outside the element range of the list, the resulting Slinq will be empty.
 	    ///     Slinqs created by this method will chain removal operations to the underlying list.
 	    /// </summary>
-	    public static Slinq<Tuple<T, int>, IListContext<T>> SlinqWithIndexDescending<T>(this IList<T> list,
+	    public static Slinq<ValueTuple<T, int>, IListContext<T>> SlinqWithIndexDescending<T>(this IList<T> list,
             int startIndex)
         {
             return IListContext<T>.SlinqWithIndex(list, startIndex, -1);

@@ -40,20 +40,20 @@ namespace Smooth.Foundations.PatternMatching
     {
         private readonly TMatcher _matcher;
         private readonly Action<DelegateFunc<T1, T2, bool>, Action<T1, T2>> _recorder;
-        private readonly List<Tuple<T1, T2>> _values;
+        private readonly List<ValueTuple<T1, T2>> _values;
 
-        internal WithForActionHandler(Tuple<T1, T2> value,
+        internal WithForActionHandler(ValueTuple<T1, T2> value,
             Action<DelegateFunc<T1, T2, bool>, Action<T1, T2>> recorder,
             TMatcher matcher)
         {
-            _values = new List<Tuple<T1, T2>> {value};
+            _values = new List<ValueTuple<T1, T2>> {value};
             _recorder = recorder;
             _matcher = matcher;
         }
 
         public WithForActionHandler<TMatcher, T1, T2> Or(T1 value1, T2 value2)
         {
-            _values.Add(Tuple.Create(value1, value2));
+            _values.Add(ValueTuple.Create(value1, value2));
             return this;
         }
 
@@ -61,7 +61,7 @@ namespace Smooth.Foundations.PatternMatching
         {
             _recorder((x, y) => _values
                 .Slinq()
-                .Any((t1, t2) => t1 == t2, Tuple.Create(x, y)), action);
+                .Any((t1, t2) => t1.Equals(t2), ValueTuple.Create(x, y)), action);
             return _matcher;
         }
     }
@@ -70,20 +70,20 @@ namespace Smooth.Foundations.PatternMatching
     {
         private readonly TMatcher _matcher;
         private readonly Action<DelegateFunc<T1, T2, T3, bool>, Action<T1, T2, T3>> _recorder;
-        private readonly List<Tuple<T1, T2, T3>> _values;
+        private readonly List<ValueTuple<T1, T2, T3>> _values;
 
-        internal WithForActionHandler(Tuple<T1, T2, T3> value,
+        internal WithForActionHandler(ValueTuple<T1, T2, T3> value,
             Action<DelegateFunc<T1, T2, T3, bool>, Action<T1, T2, T3>> recorder,
             TMatcher matcher)
         {
-            _values = new List<Tuple<T1, T2, T3>> {value};
+            _values = new List<ValueTuple<T1, T2, T3>> {value};
             _recorder = recorder;
             _matcher = matcher;
         }
 
         public WithForActionHandler<TMatcher, T1, T2, T3> Or(T1 value1, T2 value2, T3 value3)
         {
-            _values.Add(Tuple.Create(value1, value2, value3));
+            _values.Add(ValueTuple.Create(value1, value2, value3));
             return this;
         }
 
@@ -91,7 +91,7 @@ namespace Smooth.Foundations.PatternMatching
         {
             _recorder((x, y, z) => _values
                 .Slinq()
-                .Any((t1, t2) => t1 == t2, Tuple.Create(x, y, z)), action);
+                .Any((t1, t2) => t1.Equals(t2), ValueTuple.Create(x, y, z)), action);
             return _matcher;
         }
     }
@@ -100,20 +100,20 @@ namespace Smooth.Foundations.PatternMatching
     {
         private readonly TMatcher _matcher;
         private readonly Action<DelegateFunc<T1, T2, T3, T4, bool>, Action<T1, T2, T3, T4>> _recorder;
-        private readonly List<Tuple<T1, T2, T3, T4>> _values;
+        private readonly List<ValueTuple<T1, T2, T3, T4>> _values;
 
-        internal WithForActionHandler(Tuple<T1, T2, T3, T4> value,
+        internal WithForActionHandler(ValueTuple<T1, T2, T3, T4> value,
             Action<DelegateFunc<T1, T2, T3, T4, bool>, Action<T1, T2, T3, T4>> recorder,
             TMatcher matcher)
         {
-            _values = new List<Tuple<T1, T2, T3, T4>> {value};
+            _values = new List<ValueTuple<T1, T2, T3, T4>> {value};
             _recorder = recorder;
             _matcher = matcher;
         }
 
         public WithForActionHandler<TMatcher, T1, T2, T3, T4> Or(T1 value1, T2 value2, T3 value3, T4 value4)
         {
-            _values.Add(Tuple.Create(value1, value2, value3, value4));
+            _values.Add(ValueTuple.Create(value1, value2, value3, value4));
             return this;
         }
 
@@ -122,7 +122,7 @@ namespace Smooth.Foundations.PatternMatching
             _recorder((w, x, y, z) =>
                 _values
                     .Slinq()
-                    .Any((t1, t2) => t1 == t2, Tuple.Create(w, x, y, z)), action);
+                    .Any((t1, t2) => t1.Equals(t2), ValueTuple.Create(w, x, y, z)), action);
             return _matcher;
         }
     }

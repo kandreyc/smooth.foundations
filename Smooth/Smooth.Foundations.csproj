@@ -48,7 +48,6 @@
   <ItemGroup>
     <Compile Include="Foundations\Algebraics\Either.cs" />
     <Compile Include="Foundations\Algebraics\Option.cs" />
-    <Compile Include="Foundations\Algebraics\Tuple.cs" />
     <Compile Include="Foundations\Algebraics\Union.cs" />
     <Compile Include="Foundations\Algebraics\Unit.cs" />
     <Compile Include="Foundations\PatternMatching\ValueOrError\Action\ErrorMatcher.cs" />

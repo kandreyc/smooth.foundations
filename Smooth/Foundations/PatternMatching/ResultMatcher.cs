@@ -50,9 +50,9 @@ namespace Smooth.Foundations.PatternMatching
     public sealed class ResultMatcher<T1, T2, TResult>
     {
         private readonly MatchFunctionSelector<T1, T2, TResult> _functionSelector;
-        private readonly Tuple<T1, T2> _item;
+        private readonly ValueTuple<T1, T2> _item;
 
-        internal ResultMatcher(Tuple<T1, T2> item)
+        internal ResultMatcher(ValueTuple<T1, T2> item)
         {
             _item = item;
             _functionSelector = new MatchFunctionSelector<T1, T2, TResult>((x, y) =>
@@ -63,7 +63,7 @@ namespace Smooth.Foundations.PatternMatching
 
         public WithForFuncHandler<ResultMatcher<T1, T2, TResult>, T1, T2, TResult> With(T1 value1, T2 value2)
         {
-            return new WithForFuncHandler<ResultMatcher<T1, T2, TResult>, T1, T2, TResult>(Tuple.Create(value1, value2),
+            return new WithForFuncHandler<ResultMatcher<T1, T2, TResult>, T1, T2, TResult>(ValueTuple.Create(value1, value2),
                 RecordAction,
                 this);
         }
@@ -100,9 +100,9 @@ namespace Smooth.Foundations.PatternMatching
     public sealed class ResultMatcher<T1, T2, T3, TResult>
     {
         private readonly MatchFunctionSelector<T1, T2, T3, TResult> _functionSelector;
-        private readonly Tuple<T1, T2, T3> _item;
+        private readonly ValueTuple<T1, T2, T3> _item;
 
-        internal ResultMatcher(Tuple<T1, T2, T3> item)
+        internal ResultMatcher(ValueTuple<T1, T2, T3> item)
         {
             _item = item;
             _functionSelector = new MatchFunctionSelector<T1, T2, T3, TResult>((x, y, z) =>
@@ -116,7 +116,7 @@ namespace Smooth.Foundations.PatternMatching
             T3 value3)
         {
             return new WithForFuncHandler<ResultMatcher<T1, T2, T3, TResult>, T1, T2, T3, TResult>(
-                Tuple.Create(value1, value2, value3), RecordAction, this);
+                ValueTuple.Create(value1, value2, value3), RecordAction, this);
         }
 
         public WhereForFuncHandler<ResultMatcher<T1, T2, T3, TResult>, T1, T2, T3, TResult> Where(
@@ -151,9 +151,9 @@ namespace Smooth.Foundations.PatternMatching
     public sealed class ResultMatcher<T1, T2, T3, T4, TResult>
     {
         private readonly MatchFunctionSelector<T1, T2, T3, T4, TResult> _functionSelector;
-        private readonly Tuple<T1, T2, T3, T4> _item;
+        private readonly ValueTuple<T1, T2, T3, T4> _item;
 
-        internal ResultMatcher(Tuple<T1, T2, T3, T4> item)
+        internal ResultMatcher(ValueTuple<T1, T2, T3, T4> item)
         {
             _item = item;
             _functionSelector = new MatchFunctionSelector<T1, T2, T3, T4, TResult>(
@@ -168,7 +168,7 @@ namespace Smooth.Foundations.PatternMatching
             With(T1 value1, T2 value2, T3 value3, T4 value4)
         {
             return new WithForFuncHandler<ResultMatcher<T1, T2, T3, T4, TResult>, T1, T2, T3, T4, TResult>(
-                Tuple.Create(value1, value2, value3, value4),
+                ValueTuple.Create(value1, value2, value3, value4),
                 RecordAction,
                 this);
         }

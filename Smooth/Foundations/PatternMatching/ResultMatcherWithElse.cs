@@ -29,11 +29,11 @@ namespace Smooth.Foundations.PatternMatching
     {
         private readonly DelegateFunc<T1, T2, TResult> _elseAction;
         private readonly MatchFunctionSelector<T1, T2, TResult> _selector;
-        private readonly Tuple<T1, T2> _value;
+        private readonly ValueTuple<T1, T2> _value;
 
         internal ResultMatcherWithElse(MatchFunctionSelector<T1, T2, TResult> selector,
             DelegateFunc<T1, T2, TResult> elseAction,
-            Tuple<T1, T2> value)
+            ValueTuple<T1, T2> value)
         {
             _selector = selector;
             _elseAction = elseAction;
@@ -51,11 +51,11 @@ namespace Smooth.Foundations.PatternMatching
     {
         private readonly DelegateFunc<T1, T2, T3, TResult> _elseAction;
         private readonly MatchFunctionSelector<T1, T2, T3, TResult> _selector;
-        private readonly Tuple<T1, T2, T3> _value;
+        private readonly ValueTuple<T1, T2, T3> _value;
 
         internal ResultMatcherWithElse(MatchFunctionSelector<T1, T2, T3, TResult> selector,
             DelegateFunc<T1, T2, T3, TResult> elseAction,
-            Tuple<T1, T2, T3> value)
+            ValueTuple<T1, T2, T3> value)
         {
             _selector = selector;
             _elseAction = elseAction;
@@ -73,11 +73,11 @@ namespace Smooth.Foundations.PatternMatching
     {
         private readonly DelegateFunc<T1, T2, T3, T4, TResult> _elseAction;
         private readonly MatchFunctionSelector<T1, T2, T3, T4, TResult> _selector;
-        private readonly Tuple<T1, T2, T3, T4> _value;
+        private readonly ValueTuple<T1, T2, T3, T4> _value;
 
         internal ResultMatcherWithElse(MatchFunctionSelector<T1, T2, T3, T4, TResult> selector,
             DelegateFunc<T1, T2, T3, T4, TResult> elseAction,
-            Tuple<T1, T2, T3, T4> value)
+            ValueTuple<T1, T2, T3, T4> value)
         {
             _selector = selector;
             _elseAction = elseAction;

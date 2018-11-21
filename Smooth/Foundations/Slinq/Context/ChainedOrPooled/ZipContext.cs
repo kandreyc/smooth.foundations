@@ -19,10 +19,10 @@ namespace Smooth.Slinq.Context
     {
         #region Slinqs
 
-        public static Slinq<Tuple<T, T2>, ZipContext<T2, C2, T, C>> Zip(Slinq<T, C> left, Slinq<T2, C2> right,
+        public static Slinq<ValueTuple<T, T2>, ZipContext<T2, C2, T, C>> Zip(Slinq<T, C> left, Slinq<T2, C2> right,
             ZipRemoveFlags removeFlags)
         {
-            return new Slinq<Tuple<T, T2>, ZipContext<T2, C2, T, C>>(
+            return new Slinq<ValueTuple<T, T2>, ZipContext<T2, C2, T, C>>(
                 skip,
                 remove,
                 dispose,
@@ -56,11 +56,11 @@ namespace Smooth.Slinq.Context
 
         #region Delegates
 
-        private static readonly Mutator<Tuple<T, T2>, ZipContext<T2, C2, T, C>> skip = Skip;
-        private static readonly Mutator<Tuple<T, T2>, ZipContext<T2, C2, T, C>> remove = Remove;
-        private static readonly Mutator<Tuple<T, T2>, ZipContext<T2, C2, T, C>> dispose = Dispose;
+        private static readonly Mutator<ValueTuple<T, T2>, ZipContext<T2, C2, T, C>> skip = Skip;
+        private static readonly Mutator<ValueTuple<T, T2>, ZipContext<T2, C2, T, C>> remove = Remove;
+        private static readonly Mutator<ValueTuple<T, T2>, ZipContext<T2, C2, T, C>> dispose = Dispose;
 
-        private static void Skip(ref ZipContext<T2, C2, T, C> context, out Option<Tuple<T, T2>> next)
+        private static void Skip(ref ZipContext<T2, C2, T, C> context, out Option<ValueTuple<T, T2>> next)
         {
             context.bd.DetectBacktrack();
 
@@ -76,12 +76,12 @@ namespace Smooth.Slinq.Context
 
             if (context.left.current.isSome && context.right.current.isSome)
             {
-                next = new Option<Tuple<T, T2>>(new Tuple<T, T2>(context.left.current.value,
+                next = new Option<ValueTuple<T, T2>>(new ValueTuple<T, T2>(context.left.current.value,
                     context.right.current.value));
             }
             else
             {
-                next = new Option<Tuple<T, T2>>();
+                next = new Option<ValueTuple<T, T2>>();
                 context.bd.Release();
                 if (context.left.current.isSome)
                     context.left.dispose(ref context.left.context, out context.left.current);
@@ -90,7 +90,7 @@ namespace Smooth.Slinq.Context
             }
         }
 
-        private static void Remove(ref ZipContext<T2, C2, T, C> context, out Option<Tuple<T, T2>> next)
+        private static void Remove(ref ZipContext<T2, C2, T, C> context, out Option<ValueTuple<T, T2>> next)
         {
             context.bd.DetectBacktrack();
 
@@ -109,9 +109,9 @@ namespace Smooth.Slinq.Context
             Skip(ref context, out next);
         }
 
-        private static void Dispose(ref ZipContext<T2, C2, T, C> context, out Option<Tuple<T, T2>> next)
+        private static void Dispose(ref ZipContext<T2, C2, T, C> context, out Option<ValueTuple<T, T2>> next)
         {
-            next = new Option<Tuple<T, T2>>();
+            next = new Option<ValueTuple<T, T2>>();
             context.bd.Release();
             context.left.dispose(ref context.left.context, out context.left.current);
             context.right.dispose(ref context.right.context, out context.right.current);
@@ -143,7 +143,7 @@ namespace Smooth.Slinq.Context
 
         #region Selectors
 
-        public static readonly DelegateFunc<T, T2, Tuple<T, T2>> tuple = (t, t2) => new Tuple<T, T2>(t, t2);
+        public static readonly DelegateFunc<T, T2, ValueTuple<T, T2>> tuple = (t, t2) => new ValueTuple<T, T2>(t, t2);
 
         #endregion
 
